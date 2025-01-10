@@ -1,0 +1,20 @@
+  .products {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  }
+  .product {
+  background-color: #10d3108f;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 15px;
+  width: 200px;
+  text-align: center;
+  }
+  .product img {
+  width: 100%;
+  height: auto;
+  /* border-bottom: 1px solid #ddd; */
+  margin-bottom: 10px;
+  }

@@ -2,6 +2,7 @@ import React, { memo } from "react";
 import "./style.scss";
 import Slideshow from "../../../componet/Slideshow/Slideshow";
 import Menu from "../../../componet/menu/menu";
+import ProductList from "../../../componet/listSP/listsp";
 
 
 const Homepage = () => {
@@ -15,7 +16,9 @@ const Homepage = () => {
         <Slideshow/>
     </div>
 
-    <div>Khúc này để hiển thị sản phẩm</div>
+    <div>
+      <ProductList/>
+    </div>
 
     <div class="container">
         <img class="background-image" src="https://www.tierra.vn/wp-content/uploads/2024/04/thiet-ke-theo-yeu-cau-P9CAcUADlA.png" alt="design theo yêu cầu" />
