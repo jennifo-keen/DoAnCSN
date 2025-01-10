@@ -1,0 +1,10 @@
+// thay đổi css của toàn trang web
+@use "sass:map";
+html,body{
+    margin: 0;
+}
+*{
+    font-family: Roboto;
+    padding:0;
+    margin: 0;
+}

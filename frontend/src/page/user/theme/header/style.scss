@@ -1,0 +1,58 @@
+/* ---------------------------- header ----------------------------*/
+            /* Căn chỉnh phần header */
+            .header {
+                display: flex;
+                justify-content: space-between; /* Chia đều không gian giữa các phần tử */
+                align-items: center; /* Căn giữa theo chiều dọc */
+                padding: 10px 100px; /* Khoảng cách bên trong header */
+                background-color: #f4f4f4; /* Màu nền header */
+            }           
+            /* Căn chỉnh các phần tử trong connect */
+            .connect {
+                display: flex;
+                gap: 20px; /* Khoảng cách giữa các icon */
+                width: 500px ;
+                
+            }
+            
+            .connect a {
+                display: flex;
+                align-items: center; /* Căn giữa icon và text (số điện thoại) */
+                text-decoration: none;
+                
+            }
+            
+            .connect img {
+                width: 30px;
+                height: 30px; /* Đảm bảo kích thước của các icon bằng nhau */
+            }
+            /* Căn chỉnh số điện thoại */
+            .phone_number {
+                margin-left: 10px; /* Khoảng cách giữa icon và số điện thoại */
+                font-size: 14px;
+            }
+          
+            /* Căn chỉnh phần logo */
+            .logo a {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .logo img {
+                width: 150px; /* Đặt kích thước của logo */
+            
+            }
+            .account{
+                width: 500px;
+                gap: 10px;
+                display: flex;
+                justify-content: right;
+                align-items: center;
+                text-decoration:none;            
+            }      
+            .account a {
+                text-decoration:none;
+            }
+            .account img {
+                width: 30px;;
+            }
