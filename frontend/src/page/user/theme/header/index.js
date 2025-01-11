@@ -14,11 +14,10 @@ const Header = () => {
             </a>
             <a href="phone.com" class="phone">
                 <img src="https://www.tierra.vn/wp-content/uploads/2024/04/phone-ic.png" alt="Phone_number"/>
-                <span class="phone_number">091464XXXX</span>
             </a>
         </div>
         <div class="logo">
-            <a href="home.com">
+            <a href="http://localhost:3000">
                 <img src="./Logo.png" alt="logo" width="100px" height="60px"/>
             </a>
         </div> 

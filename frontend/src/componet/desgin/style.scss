@@ -1,0 +1,58 @@
+
+/*----------------------- Thiết kế riêng -----------------------*/
+
+.container {
+  position: relative;
+  width: 50%;
+  max-width: 1200px; /* Điều chỉnh kích thước phù hợp */
+  margin: 0 auto;
+  padding-top: 50px;
+  overflow: hidden;
+}
+
+.background-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  filter: brightness(0.95); /* Làm mờ nhẹ hình nền */
+}
+
+.text-overlay {
+  position: absolute;
+  top: 60%;
+  left: 5%;
+  transform: translateY(-50%);
+  color: #333; /* Màu chữ */
+  max-width: 40%;
+  font-family: "Arial", sans-serif;
+}
+
+.text-overlay h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.text-overlay p {
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.cta-button {
+  display: inline-block;
+  padding: 0.8rem 1.5rem;
+  background-color: transparent;
+  color: #333;
+  border: none;
+  font-size: 1rem;
+  text-decoration: none;
+  font-weight: bold;
+  border-bottom: 2px solid #333;
+  transition: all 0.3s ease;
+}
+
+.cta-button:hover {
+  color: #000;
+  border-bottom: 2px solid #000;
+}

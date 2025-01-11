@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import { ROUTERS } from "./utils/router";
 import HomePage from "./page/user/homePage";
 import MasterLayout from "./page/user/theme/masterLayout";
-import ProfilePage from "./page/user/profilePage";
+import SanPham from "./page/user/SanPham";
 
 const renderUserRouter = () => {
     const  userRouters = [
@@ -11,8 +11,8 @@ const renderUserRouter = () => {
             component: <HomePage/> 
         },
         {
-            path: ROUTERS.USER.PROFILE,
-            component: <ProfilePage/> 
+            path: ROUTERS.USER.SANPHAM,
+            component: <SanPham/> 
         }
     ];
 
