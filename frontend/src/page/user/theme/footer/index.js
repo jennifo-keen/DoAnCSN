@@ -6,7 +6,7 @@ const Footer = () => {
         <footer>
         <div class="footer_1">
             <div>
-                <img  class="footer_logo" src="https://www.tierra.vn/wp-content/uploads/2024/03/logo_2.jpg" alt="logo"/>
+                <img  class="footer_logo" src="Logo.png" alt="logo"/>
             </div>
             <div class="footer_conn">
                 <h2>Sản phẩm</h2>
