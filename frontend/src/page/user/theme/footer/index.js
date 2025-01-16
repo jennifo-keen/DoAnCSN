@@ -40,7 +40,7 @@ const Footer = () => {
                 <h2>Hỗ trợ</h2>
                 <ul class="links">
                     <li class="li_footer">
-                        <a href="link.com#">Chính sách mua hàng - thu đổi</a>
+                        <a href="link.com#">Chính sách mua hàng - Thu đổi</a>
                     </li>
                     <li class="li_footer">
                         <a href="link.com">Phương thức thanh toán</a>
@@ -54,7 +54,7 @@ const Footer = () => {
         <hr class="hr"/>
         <div class="footer_2">
             <div class="footer_2_text">
-                <p>Công ty Cổ phần Macca_Jewelry - MST: xxxxxxxxxx - Do Sở kế hoạch và đầu tư TPHCM cấp ngày xx/xx/xx</p>
+                <p>Công ty Cổ phần Macca_Jewelry - MST: xxxxxxxxxxxx - Do Sở kế hoạch và đầu tư TPHCM cấp ngày xx/xx/xx</p>
                 <p>Trụ sở chính: 104 Đ. Nguyễn Văn Trỗi, Phường 8, Phú Nhuận, Hồ Chí Minh</p>
             </div>
             <div>
