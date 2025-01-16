@@ -2,6 +2,7 @@ import React, { memo, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Menu from "../../../componet/menu/menu";
 import "./style.scss";
+import Design from "../../../componet/desgin/desgin";
 
 const SanPham = () => {
   const { productId } = useParams(); // Lấy ID sản phẩm từ URL
@@ -25,45 +26,49 @@ const SanPham = () => {
       <div className="product-container">
         <div className="image-gallery">
           <div className="main-image">
-            <img src={product.image_url} alt={product.name} />
+            <img src={product.image_url} alt= {product.name} />
           </div>
         </div>
         <div className="product-details">
           <h1>{product.name}</h1>
           <p className="price">{product.price} đ</p>
-          <ul>
-            <li>
-              <strong>Mã sản phẩm:</strong> {product.product_id}
-            </li>
-            <li>
-              <strong>Kích cỡ:</strong> {product.size}
-            </li>
-            <li>
-              <strong>Màu Kim Loại:</strong> {product.metal_color}
-            </li>
-            <li>
-              <strong>Chất liệu:</strong> {product.material}
-            </li>
-          </ul>
+          <div className="thongtin">
+              <div className="tt">
+                <strong>Mã sản phẩm:</strong> 
+                <p>{product.product_id}</p>
+              </div>
+              <div className="tt">
+                <strong>Kích cỡ:</strong> {product.weight}
+              </div>
+              <div className="tt">
+                <strong>Màu Kim Loại:</strong> {product.color}
+              </div>
+              <div className="tt">
+                <strong>Chất liệu:</strong> {product.material}
+              </div>
+              <div className="tt">
+                <strong>Số lượng còn lại:</strong> {product.stock_quantity	}
+              </div>
+          </div>
+          <hr/>
           <button className="consult-button">Thêm vô giỏ hàng</button>
           <button className="muangay">Mua ngay</button>
           <div className="thong-tin">
             <p className="note">
-              (*) Quý khác vui lòng đọc kĩ hướng dẫn sử dụng trước khi sử dụng
-              kim cương hột xoàn nhé !!!
+              {product.description}
             </p>
-            <p className="hotline">📞 gọi điện liền để mua hàng nào</p>
+            <hr/>
+            <p className="hotline">Quý khách vui lòng đọc kỹ hướng dẫn sử dụng trước khi sử dụng nhẫn </p>
+            <p className="hotline">Liên hệ đến số điện thoại xxxxxxx để được tư vấn</p>
           </div>
         </div>
-      </div>
-      <div className="chutich">
-        <p>{product.description}</p>
       </div>
       <div className="home">
         <a href="/">
           <h2>Về trang chủ</h2>
         </a>
       </div>
+      <Design/>
     </>
   );
 };

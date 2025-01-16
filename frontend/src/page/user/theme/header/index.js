@@ -17,7 +17,7 @@ const Header = () => {
             </a>
         </div>
         <div class="logo">
-            <a href="http://localhost:3000">
+            <a href="/">
                 <img src="./Logo.png" alt="logo" width="100px" height="60px"/>
             </a>
         </div> 
