@@ -67,13 +67,13 @@ router.post('/login', async (req, res) => {
     // Tìm kiếm người dùng bằng email
     const [user] = await db.query('SELECT * FROM customers WHERE email = ?', [email]);
     if (user.length === 0) {
-      return res.status(404).json({ message: 'Email không tồn tại' });
+      return res.status(404).json({ message: 'email hoặc mật khẩu không chính xác' });
     }
 
     // Kiểm tra mật khẩu
     const isPasswordValid = await bcrypt.compare(password, user[0].password);
     if (!isPasswordValid) {
-      return res.status(401).json({ message: 'Mật khẩu không đúng' });
+      return res.status(401).json({ message: 'email hoặc mật khẩu không chính xác' });
     }
 
     // Trả về phản hồi nếu đăng nhập thành công
