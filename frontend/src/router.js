@@ -12,7 +12,7 @@ const renderUserRouter = () => {
                 <Routes>
                     <Route path="/" element={<HomePage />} />
                     <Route path="/product/:productId" element={<SanPham />} />
-                    <Route path="/signup" element={<SignUp/>} />
+                    <Route path="/signup" element={<SignUp/>} /> {/* Trang Đăng ký */}
                     <Route path="/login" element={<Login />} /> {/* Trang đăng nhập */}
                 </Routes>
             </MasterLayout>

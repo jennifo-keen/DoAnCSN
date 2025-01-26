@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import "./style.scss"
 const Login = () => {
   const [formData, setFormData] = useState({
     email: '',
@@ -67,6 +67,7 @@ const Login = () => {
           />
         </div>
         <button type="submit" className="login-button">Đăng Nhập</button>
+        <a className="signup" href='/signup'>Đăng ký</a>
       </form>
     </div>
   );

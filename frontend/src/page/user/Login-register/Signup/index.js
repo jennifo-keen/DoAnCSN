@@ -125,6 +125,7 @@ const SignUp = () => {
           />
         </div>
         <button type="submit" className="signup-button">Đăng Ký</button>
+        <a className="signup" href='/login'>Đăng nhập</a>
       </form>
     </div>
   );
