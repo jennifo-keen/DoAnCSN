@@ -16,3 +16,6 @@ const PORT = 5000;
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
+// Rouster cho giỏ hàng
+const cartRoutes = require('./routes/cartRoutes');
+app.use('/api', cartRoutes);

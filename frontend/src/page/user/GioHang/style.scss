@@ -1,0 +1,104 @@
+/* Định dạng tổng thể */
+.cart-container {
+    max-width: 800px;
+    margin: 50px auto;
+    background-color: #fdfaf5; /* Nền màu kem giống ảnh */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    font-family: "Arial", sans-serif;
+  }
+  
+  /* Tiêu đề */
+  .cart-container h1 {
+    text-align: center;
+    font-size: 24px;
+    color: #8a6d3b; /* Màu chữ vàng nâu */
+    margin-bottom: 20px;
+  }
+  
+  /* Khi giỏ hàng trống */
+  .empty-cart {
+    text-align: center;
+    font-size: 18px;
+    color: #8a6d3b;
+  }
+  
+  /* Mỗi sản phẩm trong giỏ hàng */
+  .cart-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    border-bottom: 1px solid #e5dac8;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  /* Hiển thị sản phẩm */
+  .cart-item img {
+    width: 70px;
+    height: auto;
+    border-radius: 5px;
+    border: 1px solid #e5dac8;
+  }
+  
+  /* Thông tin sản phẩm */
+  .cart-item h3 {
+    font-size: 18px;
+    color: #5d4037;
+    flex: 1;
+    margin-left: 15px;
+  }
+  
+  /* Giá sản phẩm */
+  .cart-item p {
+    font-size: 16px;
+    font-weight: bold;
+    color: #8a6d3b;
+  }
+  
+  /* Input số lượng */
+  .cart-item input {
+    width: 50px;
+    padding: 5px;
+    font-size: 16px;
+    text-align: center;
+    border: 1px solid #e5dac8;
+    border-radius: 5px;
+  }
+  
+  /* Nút xóa sản phẩm */
+  .cart-item button {
+    background-color: #d4a373;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .cart-item button:hover {
+    background-color: #b8875c;
+  }
+  
+  /* Nút mua hàng */
+  .checkout-btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 12px;
+    background-color: #8a6d3b;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 20px;
+  }
+  
+  .checkout-btn:hover {
+    background-color: #6c4f2b;
+  }
+  

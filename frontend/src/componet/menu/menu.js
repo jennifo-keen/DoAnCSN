@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./style.scss";
@@ -60,6 +61,11 @@ const Menu = () => {
               <img style={{height:'30px', width:'30px'}} src="https://tierra.vn/wp-content/uploads/2024/05/icon-search.png" alt="icon_search" />
             </button>
           </form>
+        </div>
+        <div className="cart">
+          <Link to="/cart">
+            <button>🛒 Giỏ hàng</button>
+          </Link>
         </div>
         </div>
     )
