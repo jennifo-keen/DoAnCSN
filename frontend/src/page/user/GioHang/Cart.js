@@ -15,7 +15,7 @@ const Cart = () => {
           <div key={item.product_id} className="cart-item">
             <img src={item.image_url} alt={item.name} width="50" />
             <h3>{item.name}</h3>
-            <p>Giá: {item.price} VND</p>
+            <p>Giá: {item.price} VNĐ</p>
             <input
               type="number"
               min="1"
