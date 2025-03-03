@@ -9,7 +9,7 @@ const Cart = () => {
     <div>
       <h1>Giỏ hàng</h1>
       {cart.length === 0 ? (
-        <p>Giỏ hàng trống</p>
+        <p>Giỏ hàng không có gì</p>
       ) : (
         cart.map((item) => (
           <div key={item.product_id} className="cart-item">
