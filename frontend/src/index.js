@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';  
 import { BrowserRouter } from 'react-router-dom';
 import RouterCustom from './router';
-import { CartProvider } from './utils/CartContext';
-import { AuthProvider } from './utils/AuthContext'; // Đảm bảo đường dẫn đúng
+import { CartProvider } from './contexts/CartContext';
+import { AuthProvider } from './contexts/login-registerContext'; // Đảm bảo đường dẫn đúng
 import './style/style.scss';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

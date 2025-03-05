@@ -1,17 +1,24 @@
 import React, { createContext, useState, useEffect } from "react";
 
-// Tạo Context
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null); // Thông tin người dùng
+  const [user, setUser] = useState(null);
 
-  // Kiểm tra xem đã đăng nhập chưa
   useEffect(() => {
-    const storedUser = JSON.parse(localStorage.getItem("user"));
-    if (storedUser) {
+    const checkUser = () => {
+      const storedUser = JSON.parse(localStorage.getItem("user"));
       setUser(storedUser);
-    }
+    };
+
+    checkUser();
+
+    // Lắng nghe thay đổi từ localStorage
+    window.addEventListener("storage", checkUser);
+
+    return () => {
+      window.removeEventListener("storage", checkUser);
+    };
   }, []);
 
   const login = (userData) => {

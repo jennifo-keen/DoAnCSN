@@ -1,6 +1,5 @@
 import React, { createContext, useState, useEffect, useContext } from "react";
-import { AuthContext } from "./AuthContext"; // Lấy thông tin người dùng
-
+import { AuthContext } from "./login-registerContext"; // Lấy thông tin người dùng
 export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {

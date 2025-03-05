@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import "./style.scss"
+import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../../../contexts/login-registerContext";
+import "./style.scss";
+
 const Login = () => {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-  });
+  const { login } = useContext(AuthContext); // Lấy hàm login từ context
+  const [formData, setFormData] = useState({ email: "", password: "" });
   const navigate = useNavigate();
 
   const handleInputChange = (e) => {
@@ -15,29 +15,27 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
     try {
-      const response = await fetch('http://localhost:5000/api/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch("http://localhost:5000/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
-  
+
       const data = await response.json();
       if (response.ok) {
-        alert('Đăng nhập thành công!');
-        // Lưu thông tin người dùng vào localStorage
-        localStorage.setItem('user', JSON.stringify(data.user));
-        navigate('/'); // Chuyển về trang chủ
+        alert("Đăng nhập thành công!");
+        login(data.user); // Cập nhật `AuthContext`
+        navigate("/"); // Điều hướng về trang chủ
       } else {
-        alert(data.message || 'Đăng nhập thất bại!');
+        alert(data.message || "Đăng nhập thất bại!");
       }
     } catch (error) {
-      console.error('Lỗi khi gửi dữ liệu:', error);
-      alert('Lỗi server!');
+      console.error("Lỗi khi gửi dữ liệu:", error);
+      alert("Lỗi server!");
     }
   };
-  
+
   return (
     <div className="login-container">
       <h1>Đăng Nhập</h1>
@@ -67,7 +65,7 @@ const Login = () => {
           />
         </div>
         <button type="submit" className="login-button">Đăng Nhập</button>
-        <a className="signup" href='/signup'>Đăng ký</a>
+        <a className="signup" href="/signup">Đăng ký</a>
       </form>
     </div>
   );

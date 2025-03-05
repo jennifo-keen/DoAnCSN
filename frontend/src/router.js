@@ -6,7 +6,7 @@ import SignUp from "./page/user/Login-register/Signup";
 import Login from "./page/user/Login-register/Login";
 import SearchResults from "./componet/SearchResults/SearchResults";
 import Cart from "./page/user/GioHang/Cart";
-import { CartProvider } from "./utils/CartContext";
+import { CartProvider } from "./contexts/CartContext";
 
 const renderUserRouter = () => {
     return (

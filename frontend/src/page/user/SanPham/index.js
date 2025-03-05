@@ -3,8 +3,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import Menu from "../../../componet/menu/menu";
 import "./style.scss";
 import Design from "../../../componet/desgin/desgin";
-import { CartContext } from "../../../utils/CartContext";
-import { AuthContext } from "../../../utils/AuthContext";
+import { CartContext } from "../../../contexts/CartContext";
+import { AuthContext } from "../../../contexts/login-registerContext";
 const SanPham = () => {
   const { addToCart } = useContext(CartContext);
   const { user } = useContext(AuthContext); // Lấy thông tin user

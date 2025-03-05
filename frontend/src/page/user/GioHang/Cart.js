@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { CartContext } from "../../../utils/CartContext";
+import { CartContext } from "../../../contexts/CartContext";
 import "./style.scss";
 
 const Cart = () => {
@@ -9,7 +9,7 @@ const Cart = () => {
     <div>
       <h1>Giỏ hàng</h1>
       {cart.length === 0 ? (
-        <p>Giỏ hàng không có gì</p>
+        <p>Giỏ hàng trống</p>
       ) : (
         cart.map((item) => (
           <div key={item.product_id} className="cart-item">
