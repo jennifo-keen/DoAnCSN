@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
-
+import Menu from "../menu/menu";
+import "./style.scss"
 const SearchResults = () => {
   const [products, setProducts] = useState([]);
   const location = useLocation();
@@ -20,8 +21,12 @@ const SearchResults = () => {
 
 
   return (
+    <>
     <div>
-      <div className="products">
+      <Menu/>
+    </div>
+    <div>
+      <div className="Sanpham">
         {products.length > 0 ? (
           products.map((product) => (
             <div key={product.product_id} className="product-card">
@@ -37,6 +42,7 @@ const SearchResults = () => {
         )}
       </div>
     </div>
+    </>
   );
 };
 

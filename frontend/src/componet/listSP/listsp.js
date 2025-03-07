@@ -7,6 +7,11 @@ function ProductList() {
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 10;
 
+  // Hàm để format giá với dấu phân cách
+  const formatPrice = (price) => {
+    return price.toLocaleString('vi-VN'); // Định dạng theo kiểu tiền tệ Việt Nam
+  };
+
   useEffect(() => {
     fetch("http://localhost:5000/api/products")
       .then((response) => response.json())
@@ -37,7 +42,7 @@ function ProductList() {
                 <Link to={`/product/${product.product_id}`}>
                   <img src={product.image_url} alt={product.name} />
                   <h3>{product.name}</h3>
-                  <p>Giá: {product.price} VND</p>
+                  <p>Giá: {formatPrice(product.price)} VND</p> {/* Hiển thị giá với dấu phân cách */}
                 </Link>
               </div>
             ))}

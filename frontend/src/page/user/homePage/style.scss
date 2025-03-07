@@ -1,6 +1,12 @@
-
-/*----------------------- Thiết kế riêng -----------------------*/
-
+.Menu {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; // Đảm bảo menu luôn ở trên cùng
+    background-color: white; // Để menu không bị trong suốt
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); // Hiệu ứng đổ bóng nhẹ
+}
 .container {
     position: relative;
     width: 50%;
@@ -55,4 +61,7 @@
 .cta-button:hover {
     color: #000;
     border-bottom: 2px solid #000;
+}
+.hr{
+    padding: 20px;
 }

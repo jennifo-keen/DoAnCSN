@@ -45,6 +45,10 @@ const SanPham = () => {
   if (!product) {
     return <p>Đang tải dữ liệu sản phẩm...</p>;
   }
+// Hàm để format giá với dấu phân cách
+const formatPrice = (price) => {
+  return price.toLocaleString('vi-VN'); // Định dạng theo kiểu tiền tệ Việt Nam
+};
 
   return (
     <>
@@ -57,7 +61,7 @@ const SanPham = () => {
         </div>
         <div className="product-details">
           <h1>{product.name}</h1>
-          <p className="price">{product.price} đ</p>
+          <p className="price">{formatPrice(product.price)} đ</p>
         <div className="thongtin">
               <div className="tt">
                 <strong>Mã sản phẩm:</strong> 
@@ -78,7 +82,12 @@ const SanPham = () => {
           </div>
           <button className="consult-button" onClick={handleAddToCart}>Thêm vào giỏ hàng</button>
           <button className="muangay" onClick={handleBuyNow}>Mua ngay</button>
+          <div className="thong-tin">
+            <p className="note">
+              {product.description}
+            </p>
         </div>
+      </div>
       </div>
 
       {showPopup && (

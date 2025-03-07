@@ -13,6 +13,40 @@ router.get('/products', async (req, res) => {
     res.status(500).json({ message: 'Lỗi server' });
   }
 });
+// API để lấy sản phẩm theo phân loại nhẫn
+  // NHẪN CẦU HÔN
+router.get('/loai1', async (req, res) => {
+  const categoryId = req.query.category_id || 1; // Mặc định lấy phân loại nhẫn cầu hôn (category_id = 1)
+  try {
+    const [rows] = await db.query('SELECT * FROM products WHERE category_id = ?', [categoryId]); 
+    res.json(rows); // Trả dữ liệu về frontend
+  } catch (error) {
+    console.error('Lỗi truy vấn database:', error);
+    res.status(500).json({ message: 'Lỗi server' });
+  }
+});
+  // NHẪN CƯỚI
+  router.get('/loai2', async (req, res) => {
+  const categoryId = req.query.category_id || 2; // Mặc định lấy phân loại nhẫn cầu hôn (category_id = 2)
+  try {
+    const [rows] = await db.query('SELECT * FROM products WHERE category_id = ?', [categoryId]); 
+    res.json(rows); // Trả dữ liệu về frontend
+  } catch (error) {
+    console.error('Lỗi truy vấn database:', error);
+    res.status(500).json({ message: 'Lỗi server' });
+  }
+});
+// TRANG SỨC
+router.get('/loai3', async (req, res) => {
+  const categoryId = req.query.category_id || 3; // Mặc định lấy phân loại nhẫn cầu hôn (category_id = 2)
+  try {
+    const [rows] = await db.query('SELECT * FROM products WHERE category_id = ?', [categoryId]); 
+    res.json(rows); // Trả dữ liệu về frontend
+  } catch (error) {
+    console.error('Lỗi truy vấn database:', error);
+    res.status(500).json({ message: 'Lỗi server' });
+  }
+});
 
 // API để lấy chi tiết sản phẩm
 router.get('/products/:productId', async (req, res) => {

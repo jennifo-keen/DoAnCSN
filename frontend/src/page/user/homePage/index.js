@@ -16,10 +16,12 @@ const Homepage = () => {
         <Slideshow/>
     </div>
 
+    <div className="hr">
+    </div>
+
     <div>
       <ProductList/>
     </div>
-
     <div>
       <Design/>
     </div>
