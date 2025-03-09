@@ -7,6 +7,8 @@ import Login from "./page/user/Login-register/Login";
 import SearchResults from "./componet/SearchResults/SearchResults";
 import Cart from "./page/user/GioHang/Cart";
 import { CartProvider } from "./contexts/CartContext";
+import AdminLogin from "./page/admin/login-singup/AdminLogin";
+import AdminRegister from "./page/admin/login-singup/AdminRegister";
 
 const RouterCustom = () => {
     return (
@@ -21,7 +23,8 @@ const RouterCustom = () => {
                 <Route path="/cart" element={<MasterLayout><Cart /></MasterLayout>} />
 
                 {/* Admin Routes - KHÔNG CÓ Header/Footer */}
-
+                <Route path="/admin/login" element={<AdminLogin />} />
+                <Route path="/admin/register" element={<AdminRegister />} />
             </Routes>
         </CartProvider>
     );
