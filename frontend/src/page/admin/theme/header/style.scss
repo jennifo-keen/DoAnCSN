@@ -1,0 +1,92 @@
+.Menu {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000; // Đảm bảo menu luôn ở trên cùng
+  background-color: white; // Để menu không bị trong suốt
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); // Hiệu ứng đổ bóng nhẹ
+}
+.ds {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff;
+  }
+  
+  .header {
+    display: flex;
+    align-items: center;
+  }
+  
+  .connect {
+    display: flex;
+    gap: 15px;
+    width: 500px;
+    padding-left: 150px;
+  }
+  
+  .connect a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+  }
+  
+  .connect img {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .logo {
+    flex: 1; // Đảm bảo logo nằm ở trung tâm
+    display: flex;
+    justify-content: center;
+  }
+  
+  .logo img {
+    height: 9vh;
+    width: 10vw;
+  }
+  
+  .user {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 16px;
+    width: 500px;
+    justify-content: flex-end;
+    padding-right: 150px;
+
+  }
+  
+  .user a {
+    text-decoration: none;
+    color: #b5a69a;
+    font-weight: 600;
+  }
+  
+  .user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .user-info span {
+    color: #000;
+  }
+  
+  .user-info button {
+    background: none;
+    border: 1px solid #b5a69a;
+    padding: 5px 15px;
+    border-radius: 5px;
+    color: #b5a69a;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+  }
+  
+  .user-info button:hover {
+    background: #b5a69a;
+    color: white;
+  }
+  

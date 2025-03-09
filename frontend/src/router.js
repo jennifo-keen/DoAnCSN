@@ -1,14 +1,14 @@
 import { Route, Routes } from "react-router-dom";
 import HomePage from "./page/user/homePage";
-import MasterLayout from "./page/user/theme/masterLayout";
+import MasterLayout from "./page/user/theme/masterLayout_user";
 import SanPham from "./page/user/SanPham";
 import SignUp from "./page/user/Login-register/Signup";
 import Login from "./page/user/Login-register/Login";
 import SearchResults from "./componet/SearchResults/SearchResults";
 import Cart from "./page/user/GioHang/Cart";
 import { CartProvider } from "./contexts/CartContext";
-import AdminLogin from "./page/admin/login-singup/AdminLogin";
-import AdminRegister from "./page/admin/login-singup/AdminRegister";
+import AdminLogin from "./page/admin/login-singup/loggin/AdminLogin";
+import AdminRegister from "./page/admin/login-singup/Register/AdminRegister";
 
 const RouterCustom = () => {
     return (
