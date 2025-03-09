@@ -8,25 +8,23 @@ import SearchResults from "./componet/SearchResults/SearchResults";
 import Cart from "./page/user/GioHang/Cart";
 import { CartProvider } from "./contexts/CartContext";
 
-const renderUserRouter = () => {
+const RouterCustom = () => {
     return (
         <CartProvider>
-            <MasterLayout>
-                <Routes>
-                    <Route path="/" element={<HomePage />} />
-                    <Route path="/product/:productId" element={<SanPham />} />
-                    <Route path="/signup" element={<SignUp />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/search" element={<SearchResults />} />
-                    <Route path="/cart" element={<Cart />} /> {/* Thêm route cho giỏ hàng */}
-                </Routes>
-            </MasterLayout>
+            <Routes>
+                {/* User Routes - CÓ Header/Footer */}
+                <Route path="/" element={<MasterLayout><HomePage /></MasterLayout>} />
+                <Route path="/product/:productId" element={<MasterLayout><SanPham /></MasterLayout>} />
+                <Route path="/signup" element={<MasterLayout><SignUp /></MasterLayout>} />
+                <Route path="/login" element={<MasterLayout><Login /></MasterLayout>} />
+                <Route path="/search" element={<MasterLayout><SearchResults /></MasterLayout>} />
+                <Route path="/cart" element={<MasterLayout><Cart /></MasterLayout>} />
+
+                {/* Admin Routes - KHÔNG CÓ Header/Footer */}
+
+            </Routes>
         </CartProvider>
     );
-};
-
-const RouterCustom = () => {
-    return renderUserRouter();
 };
 
 export default RouterCustom;
