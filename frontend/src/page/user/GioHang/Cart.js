@@ -1,68 +1,90 @@
-import React, { useContext } from "react";
-import { CartContext } from "../contexts/CartContext";
-import "./Cart.scss";
-
+import React, { useState, useEffect, useContext } from "react";
+import { AuthContext } from "../contexts/login-registerContext"; // Import AuthContext để lấy thông tin người dùng
+import "./Cart.scss"
 const Cart = () => {
-  const { cart, removeFromCart, updateQuantity } = useContext(CartContext);
+  const { user } = useContext(AuthContext); // Lấy thông tin người dùng
+  const [cartItems, setCartItems] = useState([]); // Lưu trữ sản phẩm trong giỏ hàng
+  const [loading, setLoading] = useState(true); // Để hiển thị trạng thái đang tải dữ liệu
 
-  // Function to calculate the total value of the cart
-  const calculateTotal = () => {
-    return cart.reduce((total, item) => total + item.price * item.quantity, 0);
+  useEffect(() => {
+    if (user && user.id) {
+      // Gọi API lấy giỏ hàng của người dùng
+      fetch(`http://localhost:5000/api/cart/${user.id}`)
+        .then((response) => response.json())
+        .then((data) => {
+          setCartItems(data); // Cập nhật sản phẩm vào giỏ hàng
+          setLoading(false); // Dừng trạng thái loading
+        })
+        .catch((error) => {
+          console.error("Lỗi khi lấy giỏ hàng:", error);
+          setLoading(false); // Dừng trạng thái loading khi có lỗi
+        });
+    }
+  }, [user]);
+
+  const handleQuantityChange = (productId, quantity) => {
+    // Cập nhật số lượng sản phẩm trong giỏ hàng
+    setCartItems((prevItems) =>
+      prevItems.map((item) =>
+        item.product_id === productId ? { ...item, quantity } : item
+      )
+    );
   };
 
-  const totalAmount = calculateTotal();
-  const discount = 0.2; // 20% discount
-  const discountAmount = totalAmount * discount;
-  const shipping = 9.99; // Fixed shipping fee
+  const handleRemove = (productId) => {
+    // Xóa sản phẩm khỏi giỏ hàng
+    setCartItems((prevItems) => prevItems.filter((item) => item.product_id !== productId));
+  };
 
-  const finalTotal = totalAmount - discountAmount + shipping;
+  const calculateTotal = () => {
+    return cartItems.reduce(
+      (total, item) => total + item.price * item.quantity, 0
+    );
+  };
+
+  const handleCheckout = () => {
+    // Xử lý thanh toán
+    alert("Tiến hành thanh toán!");
+  };
+
+  if (loading) {
+    return <p>Đang tải giỏ hàng...</p>; // Hiển thị thông báo khi đang tải giỏ hàng
+  }
+
+  if (cartItems.length === 0) {
+    return <p>Giỏ hàng của bạn trống.</p>; // Nếu giỏ hàng trống
+  }
 
   return (
     <div className="cart-container">
-      <div className="cart-left">
-        <h1 style={{ textAlign: "center" }}>Giỏ hàng</h1>
-        {cart.length === 0 ? (
-          <p style={{ textAlign: "center" }}>Giỏ hàng trống</p>
-        ) : (
-          cart.map((item) => (
+      <h2>Giỏ hàng của bạn</h2>
+      <div className="cart-content">
+        {/* Left side: Cart items */}
+        <div className="cart-items">
+          {cartItems.map((item) => (
             <div key={item.product_id} className="cart-item">
-              <img src={item.image_url} alt={item.name} width="50" />
-              <h3>{item.name}</h3>
-              <p>Giá: {item.price} VNĐ</p>
+              <img src={item.image_url} alt={item.name} width="100" />
+              <div className="cart-item-info">
+                <p>{item.name}</p>
+                <p>{item.price} VND</p>
+              </div>
               <input
                 type="number"
-                min="1"
                 value={item.quantity}
-                onChange={(e) =>
-                  updateQuantity(item.product_id, parseInt(e.target.value))
-                }
+                min="1"
+                onChange={(e) => handleQuantityChange(item.product_id, parseInt(e.target.value))}
               />
-              <button onClick={() => removeFromCart(item.product_id)}>Xóa</button>
+              <button onClick={() => handleRemove(item.product_id)}>Xóa</button>
             </div>
-          ))
-        )}
-      </div>
+          ))}
+        </div>
 
-      <div className="cart-right">
-        <h2>Tổng Giỏ Hàng</h2>
-        <div className="summary-item">
-          <p>Subtotal</p>
-          <span>{totalAmount.toFixed(2)} VNĐ</span>
+        {/* Right side: Cart summary */}
+        <div className="cart-summary">
+          <h3>Tổng Giỏ Hàng</h3>
+          <p>Tổng cộng: {calculateTotal()} VND</p>
+          <button onClick={handleCheckout} className="checkout-button">Tiến hành thanh toán</button>
         </div>
-        <div className="summary-item">
-          <p>Giảm giá (20%)</p>
-          <span>- {discountAmount.toFixed(2)} VNĐ</span>
-        </div>
-        <div className="summary-item">
-          <p>Phí vận chuyển</p>
-          <span>{shipping.toFixed(2)} VNĐ</span>
-        </div>
-        <div className="total summary-item">
-          <p>Tổng cộng</p>
-          <span>{finalTotal.toFixed(2)} VNĐ</span>
-        </div>
-        <button className="checkout-btn">Tiến hành thanh toán</button>
-        <button className="continue-btn">Tiếp tục mua hàng</button>
       </div>
     </div>
   );
