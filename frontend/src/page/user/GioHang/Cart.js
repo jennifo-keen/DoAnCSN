@@ -6,6 +6,11 @@ const Cart = () => {
   const [cartItems, setCartItems] = useState([]); // Lưu trữ sản phẩm trong giỏ hàng
   const [loading, setLoading] = useState(true); // Để hiển thị trạng thái đang tải dữ liệu
 
+  // Hàm để format giá với dấu phân cách
+  const formatPrice = (price) => {
+    return price.toLocaleString('vi-VN'); // Định dạng theo kiểu tiền tệ Việt Nam
+  };
+
   useEffect(() => {
     if (user && user.id) {
       // Gọi API lấy giỏ hàng của người dùng
@@ -48,7 +53,7 @@ const Cart = () => {
   };
 
   if (loading) {
-    return <p>Đang tải giỏ hàng...</p>; // Hiển thị thông báo khi đang tải giỏ hàng
+    return <p>Giỏ hàng trống...</p>; // Hiển thị thông báo khi đang tải giỏ hàng
   }
 
   if (cartItems.length === 0) {
@@ -66,7 +71,7 @@ const Cart = () => {
               <img src={item.image_url} alt={item.name} width="100" />
               <div className="cart-item-info">
                 <p>{item.name}</p>
-                <p>{item.price} VND</p>
+                <p>Giá: {formatPrice(item.price)} VND</p>
               </div>
               <input
                 type="number"
@@ -82,7 +87,7 @@ const Cart = () => {
         {/* Right side: Cart summary */}
         <div className="cart-summary">
           <h3>Tổng Giỏ Hàng</h3>
-          <p>Tổng cộng: {calculateTotal()} VND</p>
+          <p>Tổng cộng: {formatPrice(calculateTotal())} VND</p>
           <button onClick={handleCheckout} className="checkout-button">Tiến hành thanh toán</button>
         </div>
       </div>
