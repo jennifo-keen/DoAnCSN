@@ -2,13 +2,16 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Menu from "../menu/menu";
-import "./style.scss"
+import "./SearchResults.scss"
 const SearchResults = () => {
   const [products, setProducts] = useState([]);
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const keyword = params.get("keyword");
 
+  const formatPrice = (price) => {
+    return price.toLocaleString('vi-VN'); // Định dạng theo kiểu tiền tệ Việt Nam
+  };
   useEffect(() => {
     fetch(`http://localhost:5000/api/search?keyword=${keyword}`)
       .then((response) => response.json())
@@ -33,7 +36,7 @@ const SearchResults = () => {
               <Link to={`/product/${product.product_id}`}>
                 <img src={product.image_url} alt={product.name} />
                 <h3>{product.name}</h3>
-                <p>Giá: {product.price} VND</p>
+                <p>Giá: {formatPrice(product.price)} VND</p>
               </Link>
             </div>
           ))

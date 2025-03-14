@@ -1,5 +1,5 @@
 
-import "./style.scss";
+import "./desgin.scss";
 
 const Design = () => {
     return (

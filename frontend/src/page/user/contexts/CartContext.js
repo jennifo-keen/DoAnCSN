@@ -1,52 +1,64 @@
-import React, { createContext, useState, useEffect, useContext } from "react";
-import { AuthContext } from "./login-registerContext"; // Lấy thông tin người dùng
+import { createContext, useState, useContext } from "react";  // Thêm useContext vào đây
+import { AuthContext } from "../contexts/login-registerContext"; // Đảm bảo đúng đường dẫn
 export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
-  const { user } = useContext(AuthContext);
   const [cart, setCart] = useState([]);
-
-  // Load giỏ hàng từ localStorage khi user thay đổi
-  useEffect(() => {
-    if (user) {
-      const storedCart = JSON.parse(localStorage.getItem(`cart_${user.id}`)) || [];
-      setCart(storedCart);
-    } else {
-      setCart([]); // Nếu chưa đăng nhập, không hiển thị giỏ hàng
-    }
-  }, [user]);
-
-  // Cập nhật giỏ hàng vào localStorage
-  useEffect(() => {
-    if (user) {
-      localStorage.setItem(`cart_${user.id}`, JSON.stringify(cart));
-    }
-  }, [cart, user]);
+  const { user } = useContext(AuthContext); // Lấy thông tin người dùng từ context
 
   const addToCart = (product) => {
-    setCart((prevCart) => {
-      const existingProduct = prevCart.find((item) => item.product_id === product.product_id);
-      if (existingProduct) {
-        return prevCart.map((item) =>
-          item.product_id === product.product_id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        );
-      }
-      return [...prevCart, { ...product, quantity: 1 }];
-    });
-  };
+    if (!user) {
+      // Nếu người dùng chưa đăng nhập, có thể hiển thị thông báo hoặc chuyển hướng đến trang đăng nhập
+      console.log("Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng.");
+      return;
+    }
 
-  const removeFromCart = (productId) => {
-    setCart(cart.filter((item) => item.product_id !== productId));
-  };
+    const customerId = user.id; // Lấy customer_id từ context đăng nhập
+    const existingProductIndex = cart.findIndex(
+      (item) => item.product_id === product.product_id
+    );
 
-  const updateQuantity = (productId, quantity) => {
-    setCart(cart.map((item) => (item.product_id === productId ? { ...item, quantity } : item)));
+    if (existingProductIndex === -1) {
+      // Thêm sản phẩm mới vào giỏ
+      const updatedCart = [
+        ...cart,
+        { ...product, quantity: 1, customer_id: customerId },
+      ];
+      setCart(updatedCart);
+      // Gửi yêu cầu đến backend để lưu giỏ hàng vào cơ sở dữ liệu
+      fetch("http://localhost:5000/api/cart", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          customer_id: customerId,
+          product_id: product.product_id,
+          quantity: 1,
+        }),
+      });
+    } else {
+      // Nếu sản phẩm đã có trong giỏ, tăng số lượng
+      const updatedCart = [...cart];
+      updatedCart[existingProductIndex].quantity += 1;
+      setCart(updatedCart);
+      // Cập nhật số lượng trong cơ sở dữ liệu
+      fetch("http://localhost:5000/api/cart/update", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          customer_id: customerId,
+          product_id: product.product_id,
+          quantity: updatedCart[existingProductIndex].quantity,
+        }),
+      });
+    }
   };
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart, updateQuantity }}>
+    <CartContext.Provider value={{ cart, addToCart }}>
       {children}
     </CartContext.Provider>
   );

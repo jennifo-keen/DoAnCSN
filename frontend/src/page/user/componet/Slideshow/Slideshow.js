@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import "./style.scss";
+import "./Slideshow.scss";
 
 const Slideshow = () => {
   const images = [

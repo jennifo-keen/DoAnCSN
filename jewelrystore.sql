@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th3 09, 2025 lúc 04:57 PM
+-- Thời gian đã tạo: Th3 10, 2025 lúc 02:24 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -42,8 +42,7 @@ CREATE TABLE `admin_users` (
 --
 
 INSERT INTO `admin_users` (`admin_id`, `name`, `email`, `password`, `role`, `status`, `created_at`) VALUES
-(1, 'Admin Master', 'admin@example.com', '$2b$10$QGV.TbJkZKML1D58Vs3c9O7lG0pbd8FwvXo7dBo28jz9tXPmO8mYm', 'superadmin', 'active', '2025-03-08 23:05:16'),
-(2, 'Nguyễn Văn A', 'nguyenvana@example.com', '$2b$10$zVRzO8M7Jm3.KcVXNTcJxe5x6NLT97i24J3v7yNjBDdj5B7JY1F.e', 'manager', 'active', '2025-03-09 00:14:44');
+(1, 'phạm hữu kiên', 'adminnek@gmail.com', '$2b$10$BZO3irMtKJgHovbKZGz2n.Yb1fNe4zAv0nhQ0f8qIHwMeeqIb2UL6', 'staff', 'active', '2025-03-10 00:37:39');
 
 -- --------------------------------------------------------
 
@@ -112,7 +111,8 @@ INSERT INTO `customers` (`customer_id`, `name`, `email`, `password`, `phone`, `s
 (7, 'Hữu Kiên', 'ao@gmail.com', '$2b$10$YQGt7mWJsrCI7Or5vI6M6uVVxVP9A3bTpSpAlv1K06fppjNwNmdGq', '123123123', NULL, NULL, '2025-01-16 23:46:06', 'active'),
 (8, 'kiên nek', 'heloo@gmail.com', '$2b$10$/YempwyWPbJQjJB1LXDW3Oh1zXyZichlLR/TMCqW5mlnhIoubSZxe', '111', NULL, NULL, '2025-03-06 00:21:14', 'active'),
 (9, 'Jenni', 'hihi@gmail.com', '$2b$10$2/bihwuMpfX/9Ew62X99nOCZ773RBFcdQmpy50LsggF8XJxDk2xkO', '111111', NULL, NULL, '2025-03-08 01:26:13', 'active'),
-(10, 'xinchao@gmail.com', 'xinchao@gmail.com', '$2b$10$awM85t8rMwu5BxXH98MB..mveW1xyzEhsdiVOWv2Ycq4y0dAGHT8S', '123123', NULL, NULL, '2025-03-09 22:45:06', 'active');
+(10, 'xinchao@gmail.com', 'xinchao@gmail.com', '$2b$10$awM85t8rMwu5BxXH98MB..mveW1xyzEhsdiVOWv2Ycq4y0dAGHT8S', '123123', NULL, NULL, '2025-03-09 22:45:06', 'active'),
+(11, 'Kiên', 'admintest@gmail.com', '$2b$10$i7JKrsqy/T9PRWmMBijEo./3RV2uvV1Pe3aHAY.kyVpxGuRA0ScD6', '1111', NULL, NULL, '2025-03-09 23:14:21', 'active');
 
 -- --------------------------------------------------------
 
@@ -366,7 +366,7 @@ ALTER TABLE `shoppingcart`
 -- AUTO_INCREMENT cho bảng `admin_users`
 --
 ALTER TABLE `admin_users`
-  MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT cho bảng `cart`
@@ -384,7 +384,7 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT cho bảng `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT cho bảng `orderdetails`

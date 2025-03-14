@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/login-registerContext";
-import "./style.scss";
+import "./Login.scss";
 
 const Login = () => {
   const { login } = useContext(AuthContext); // Lấy hàm login từ context

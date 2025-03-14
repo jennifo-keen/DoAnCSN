@@ -1,7 +1,7 @@
   import { Link } from "react-router-dom";
   import { useContext } from "react";
   import { AuthContext } from "../../contexts/login-registerContext";
-  import "./style.scss";
+  import "./header.scss";
 
   const Header = () => {
     const { user, logout } = useContext(AuthContext); // Lấy user từ context

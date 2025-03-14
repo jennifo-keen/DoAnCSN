@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios"; // Cài axios nếu chưa có
-import "./style.scss";
+import "./menu.scss";
 
 const Menu = () => {
   const [keyword, setKeyword] = useState("");

@@ -2,7 +2,7 @@ import {memo} from "react"
 import Header from "../header";
 import Footer from "../footer";
 
-const Masterlayout = ({children,...props}) => {
+const Adminlayout = ({children,...props}) => {
     return (
     <div {...props}>
         <Header/>
@@ -11,4 +11,4 @@ const Masterlayout = ({children,...props}) => {
     </div>
     );
 };
-export default memo(Masterlayout);
+export default memo(Adminlayout);

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import "./style.scss";
+import "./listsp.scss";
 
 function ProductList() {
   const [products, setProducts] = useState([]);

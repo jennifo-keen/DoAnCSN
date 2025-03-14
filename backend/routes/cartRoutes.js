@@ -1,53 +1,43 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../config/db');
+const db = require('../config/db'); // Đảm bảo kết nối với DB
 
-// API để lấy giỏ hàng của người dùng
-router.get('/cart', async (req, res) => {
-  try {
-    const [rows] = await db.query('SELECT * FROM cart WHERE user_id = ?', [req.user.id]);
-    res.json(rows);
-  } catch (error) {
-    console.error('Lỗi khi truy vấn giỏ hàng:', error);
-    res.status(500).json({ message: 'Lỗi server' });
-  }
+// Thêm sản phẩm vào giỏ hàng
+router.post('/cart', (req, res) => {
+  const { customer_id, product_id, quantity } = req.body;
+
+  const sql = 'INSERT INTO cart (customer_id, product_id, quantity) VALUES (?, ?, ?)';
+  db.query(sql, [customer_id, product_id, quantity], (err, result) => {
+    if (err) {
+      return res.status(500).json({ error: 'Lỗi khi thêm sản phẩm vào giỏ hàng' });
+    }
+    res.status(200).json({ message: 'Sản phẩm đã được thêm vào giỏ hàng' });
+  });
 });
 
-// API thêm sản phẩm vào giỏ hàng
-router.post('/cart', async (req, res) => {
-  const { user_id, product_id, quantity } = req.body;
-  try {
-    await db.query('INSERT INTO cart (user_id, product_id, quantity) VALUES (?, ?, ?)', [user_id, product_id, quantity]);
-    res.json({ message: 'Sản phẩm đã được thêm vào giỏ hàng' });
-  } catch (error) {
-    console.error('Lỗi khi thêm vào giỏ hàng:', error);
-    res.status(500).json({ message: 'Lỗi server' });
-  }
+// Cập nhật số lượng sản phẩm trong giỏ
+router.put('/cart/update', (req, res) => {
+  const { customer_id, product_id, quantity } = req.body;
+
+  const sql = 'UPDATE cart SET quantity = ? WHERE customer_id = ? AND product_id = ?';
+  db.query(sql, [quantity, customer_id, product_id], (err, result) => {
+    if (err) {
+      return res.status(500).json({ error: 'Lỗi khi cập nhật giỏ hàng' });
+    }
+    res.status(200).json({ message: 'Số lượng sản phẩm đã được cập nhật' });
+  });
 });
 
-// API cập nhật số lượng sản phẩm
-router.put('/cart', async (req, res) => {
-  const { user_id, product_id, quantity } = req.body;
-  try {
-    await db.query('UPDATE cart SET quantity = ? WHERE user_id = ? AND product_id = ?', [quantity, user_id, product_id]);
-    res.json({ message: 'Cập nhật số lượng thành công' });
-  } catch (error) {
-    console.error('Lỗi khi cập nhật giỏ hàng:', error);
-    res.status(500).json({ message: 'Lỗi server' });
-  }
-});
-
-// API xoá sản phẩm khỏi giỏ hàng
-router.delete('/cart/:product_id', async (req, res) => {
-  const { user_id } = req.body;
-  const { product_id } = req.params;
-  try {
-    await db.query('DELETE FROM cart WHERE user_id = ? AND product_id = ?', [user_id, product_id]);
-    res.json({ message: 'Xóa sản phẩm khỏi giỏ hàng' });
-  } catch (error) {
-    console.error('Lỗi khi xóa sản phẩm:', error);
-    res.status(500).json({ message: 'Lỗi server' });
-  }
+// Lấy giỏ hàng của người dùng
+router.get('/cart/:customer_id', (req, res) => {
+  const customerId = req.params.customer_id;
+  const sql = 'SELECT * FROM cart WHERE customer_id = ?';
+  db.query(sql, [customerId], (err, result) => {
+    if (err) {
+      return res.status(500).json({ error: 'Lỗi khi lấy giỏ hàng' });
+    }
+    res.status(200).json(result);
+  });
 });
 
 module.exports = router;
