@@ -139,11 +139,7 @@ router.post('/products', async (req, res) => {
 // API sửa sản phẩm
 router.put('/products/:productId', async (req, res) => {
   const { productId } = req.params;
-<<<<<<< HEAD
   const { name, description, price, stock_quantity, category_id, image_url } = req.body;
-=======
-  const { name, description, price, stock, category_id, image_url } = req.body;
->>>>>>> ad613c645a1e5aa79626dabeeb46f7142289713b
 
   try {
     const [existingProduct] = await db.query('SELECT * FROM products WHERE product_id = ?', [productId]);
@@ -152,13 +148,8 @@ router.put('/products/:productId', async (req, res) => {
     }
 
     await db.query(
-<<<<<<< HEAD
       'UPDATE products SET name = ?, description = ?, price = ?, stock_quantity = ?, category_id = ?, image_url = ? WHERE product_id = ?',
       [name, description, price, stock_quantity, category_id, image_url, productId]
-=======
-      'UPDATE products SET name = ?, description = ?, price = ?, stock = ?, category_id = ?, image_url = ? WHERE product_id = ?',
-      [name, description, price, stock, category_id, image_url, productId]
->>>>>>> ad613c645a1e5aa79626dabeeb46f7142289713b
     );
 
     res.json({ message: 'Cập nhật sản phẩm thành công' });
@@ -187,7 +178,6 @@ router.delete('/products/:productId', async (req, res) => {
   }
 });
 
-<<<<<<< HEAD
 // API lấy thông tin người dùng
 router.get("/user/:id", (req, res) => {
   const userId = req.params.id;
@@ -248,6 +238,4 @@ router.put("/user/:id", async (req, res) => {
   }
 });
 
-=======
->>>>>>> ad613c645a1e5aa79626dabeeb46f7142289713b
 module.exports = router;
