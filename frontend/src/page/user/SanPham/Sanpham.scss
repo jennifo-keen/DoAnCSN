@@ -1,0 +1,158 @@
+
+  .product-container {
+    display: flex;
+    padding: 10px;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .image-gallery {
+    flex: 1;
+  }
+  
+  .main-image img {
+    width: 100%;
+    border-radius: 10px;
+  }
+  
+  .thumbnail-images {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .thumbnail-images img {
+    width: 60px;
+    height: 60px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .product-details {
+    flex: 1;
+    padding-top: 50px;
+
+  }
+  .product-details ul li{
+    font-size: 18px;
+    padding-top:20px;
+  }
+  .product-details h1 {
+    font-size: 35px;
+    color: #4a4a4a;
+    margin-bottom: 10px;
+  }
+  .thongtin{
+    padding-top: 20px;
+    display: grid;
+    width: 390px;
+    gap: 20px;
+  }
+  .tt{
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+  }
+  .price {
+    font-size: 30px;
+    color: #d9534f;
+    margin-top: 10px;
+  }
+  
+  .old-price {
+    text-decoration: line-through;
+    color: #aaa;
+    font-size: 16px;
+  }
+  
+  hr{
+    margin-top: 20px;
+    width: 390px;
+  }
+
+  .consult-button {
+    padding: 15px 40px;
+    background-color: #d4a373;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+  }
+  
+  .consult-button:hover {
+    background-color: #b3875d;
+  }
+
+  .muangay {
+    padding: 15px 40px;
+    background-color: #d34c4c;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: 50px;
+  }
+  
+  .muangay:hover {
+    background-color: #b3875d;
+  }
+  
+  .note {
+    font-size: 15px;
+    color: #666;
+    margin-top: 10px;
+    width: 390px;
+    text-align: justify;
+  }
+  
+  .hotline {
+    font-size: 14px;
+    color: #333;
+    margin-top: 10px;
+    color: #d9544f;
+  }
+  
+  button.selected {
+    background-color: #d4a373;
+    color: #fff;
+    border: none;
+  }
+.chutich{
+    padding:0 200px 50px 200px ;
+}
+.home{
+    margin: 0 200px 0 200px;
+    padding: 10px 20px;
+    text-align: center;
+    background-color: #d9d9d9;
+}
+.home a{
+    text-decoration: none;
+    color: #000000;
+}
+
+.popup {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #4CAF50;
+  color: white;
+  padding: 15px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  animation: fadeInOut 2s ease-in-out;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateY(20px); }
+  10% { opacity: 1; transform: translateY(0); }
+  90% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(20px); }
+}

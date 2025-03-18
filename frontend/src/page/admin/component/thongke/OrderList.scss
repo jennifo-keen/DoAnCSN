@@ -1,0 +1,85 @@
+.admin-container {
+    display: flex;
+    height: 100vh;
+    background-color: #f4f4f4;
+  }
+  
+  .admin-menu {
+    width: 250px;
+    background: #fcf4ed;
+    padding: 20px;
+    border-radius: 40px 0 0 40px;
+  
+    h2 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+  
+    a {
+      display: block;
+      text-decoration: none;
+      color: black;
+      font-size: 18px;
+      margin-bottom: 10px;
+      padding: 5px;
+      transition: 0.3s;
+  
+      &:hover {
+        background: #fab12f;
+        color: white;
+      }
+    }
+  }
+  
+  .admin-content {
+    flex-grow: 1;
+    padding: 20px;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+  }
+  
+  th, td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  th {
+    background-color: #4caf50;
+    color: white;
+  }
+  
+  td select {
+    padding: 5px;
+    border-radius: 5px;
+  }
+  
+  button {
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+  
+  }
+  
+  .pagination {
+    margin-top: 20px;
+    text-align: center;
+  
+    button {
+      margin: 5px;
+      padding: 8px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  
+    .active {
+      background: #fab12f;
+      color: white;
+    }
+  }
+  

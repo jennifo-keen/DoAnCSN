@@ -1,0 +1,99 @@
+/* ---------------------------- menu ----------------------------*/
+
+.menu{
+    display: flex;
+    justify-self: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #dbd5d0 ;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.086);
+    width: 100%;
+    justify-content: space-between;
+}
+.list{
+    padding-left:154px ;
+}
+
+/* Style cho nút menu */
+.dropbtn {
+  background-color: #dbd5d0;
+  color: #474543;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+
+}
+
+/* Style cho menu dropdown */
+.dropdown {
+  position: relative;
+  display: inline-block;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Ẩn nội dung dropdown mặc định */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #dbd5d0;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+
+}
+
+/* Các mục trong dropdown */
+.dropdown-content a {
+  color: rgb(0, 0, 0);
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Hiển thị nội dung khi di chuột vào menu */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Thay đổi màu khi hover vào các mục trong menu */
+.dropdown-content a:hover {
+  background-color: #edeae6;
+}
+
+.search-box {
+    display: flex;
+    border: 1px ;
+    border-radius: 40px;
+    background-color: #f5f5f5;
+    padding-left: 15px;
+    height: 50px;
+    margin-right: 170px;
+}
+.search-box input {
+    border: none;
+    outline: none;
+    padding-left: 20px;
+    background-color: #f5f5f5;
+    border-radius: 40px;
+    width: 15vw;
+    font-size: 18px;
+    transform: translateY(-10px)
+}
+.search-box button {
+    background: none;
+    border: none; 
+    cursor: pointer; /* đưa chuột vô thì sẽ đổi thành hình bàn tay*/
+    padding-right: 20px;
+    padding-top: 10px;
+
+}
+.timkiem img{
+    height: 30px;
+
+}
+.img{
+    padding-bottom: 50px;
+}
