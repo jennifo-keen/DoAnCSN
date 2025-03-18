@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useState, useEffect } from "react";
 import "./AdminEditProduct.scss";
 
@@ -19,6 +20,18 @@ const AdminEditProduct = ({ product, onClose, onSave }) => {
     setStockQuantity(product.stock_quantity || 0);
   }, [product]); // Chạy lại khi product thay đổi
 
+=======
+import React, { useState } from "react";
+import "./AdminEditProduct.scss";
+
+const AdminEditProduct = ({ product, onClose, onSave }) => {
+  const [name, setName] = useState(product.name);
+  const [price, setPrice] = useState(product.price);
+  const [productType, setProductType] = useState(product.product_type);
+  const [image, setImage] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+>>>>>>> ad613c645a1e5aa79626dabeeb46f7142289713b
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -27,6 +40,7 @@ const AdminEditProduct = ({ product, onClose, onSave }) => {
       product_id: product.product_id,
       name,
       price,
+<<<<<<< HEAD
       category_id: productType,
       image_url: imageUrl, // Thêm URL ảnh ở đây
       stock_quantity, // Thêm stock_quantity ở đây
@@ -38,6 +52,31 @@ const AdminEditProduct = ({ product, onClose, onSave }) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(updatedProduct),
       });
+=======
+      category_id : productType,
+    };
+
+    try {
+      let response;
+      if (image) {
+        const formData = new FormData();
+        formData.append("image", image);
+        formData.append("name", name);
+        formData.append("price", price);
+        formData.append("category_id", productType);
+
+        response = await fetch(`http://localhost:5000/api/products/${product.product_id}`, {
+          method: "PUT",
+          body: formData,
+        });
+      } else {
+        response = await fetch(`http://localhost:5000/api/products/${product.product_id}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(updatedProduct),
+        });
+      }
+>>>>>>> ad613c645a1e5aa79626dabeeb46f7142289713b
 
       const result = await response.json();
       setLoading(false);
@@ -60,6 +99,7 @@ const AdminEditProduct = ({ product, onClose, onSave }) => {
     <div className="edit-product-container">
       <form onSubmit={handleSubmit}>
         <h2>Sửa sản phẩm</h2>
+<<<<<<< HEAD
 
         <div className="input-container">
           <input
@@ -109,6 +149,14 @@ const AdminEditProduct = ({ product, onClose, onSave }) => {
         <button type="submit" disabled={loading}>
           {loading ? "Đang cập nhật..." : "Cập nhật"}
         </button>
+=======
+        <input type="text" placeholder="Tên sản phẩm" value={name} onChange={(e) => setName(e.target.value)} required />
+        <input type="number" placeholder="Giá" value={price} onChange={(e) => setPrice(e.target.value)} required />
+        <input type="text" placeholder="Loại sản phẩm" value={productType} onChange={(e) => setProductType(e.target.value)} required />
+        <input type="file" onChange={(e) => setImage(e.target.files[0])} />
+
+        <button type="submit" disabled={loading}>{loading ? "Đang cập nhật..." : "Cập nhật"}</button>
+>>>>>>> ad613c645a1e5aa79626dabeeb46f7142289713b
         <button type="button" className="close-btn" onClick={onClose}>
           Đóng
         </button>

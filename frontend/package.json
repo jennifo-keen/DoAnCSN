@@ -10,7 +10,10 @@
     "react-icons": "^5.4.0",
     "react-router-dom": "^7.1.1",
     "react-scripts": "5.0.1",
+<<<<<<< HEAD
     "react-toastify": "^11.0.5",
+=======
+>>>>>>> ad613c645a1e5aa79626dabeeb46f7142289713b
     "sass": "^1.83.1",
     "web-vitals": "^4.2.4"
   },

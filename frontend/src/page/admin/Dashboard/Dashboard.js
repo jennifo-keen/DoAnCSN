@@ -12,7 +12,11 @@ const AdminProductList = () => {
     name: "",
     description: "",
     price: "",
+<<<<<<< HEAD
     stock_quantity: "",
+=======
+    stock: "",
+>>>>>>> ad613c645a1e5aa79626dabeeb46f7142289713b
     category_id: "",
     image_url: "",
   });
@@ -63,7 +67,11 @@ const AdminProductList = () => {
       const data = await res.json();
       alert(data.message);
       fetchProducts();
+<<<<<<< HEAD
       setNewProduct({ name: "", description: "", price: "", stock_quantity: "", category_id: "", image_url: "" });
+=======
+      setNewProduct({ name: "", description: "", price: "", stock: "", category_id: "", image_url: "" });
+>>>>>>> ad613c645a1e5aa79626dabeeb46f7142289713b
     } catch (error) {
       console.error("Lỗi khi thêm sản phẩm:", error);
     }
@@ -93,7 +101,11 @@ const AdminProductList = () => {
             <input type="text" placeholder="Tên sản phẩm" value={newProduct.name} onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })} required />
             <input type="text" placeholder="Mô tả" value={newProduct.description} onChange={(e) => setNewProduct({ ...newProduct, description: e.target.value })} />
             <input type="number" placeholder="Giá" value={newProduct.price} onChange={(e) => setNewProduct({ ...newProduct, price: e.target.value })} required />
+<<<<<<< HEAD
             <input type="number" placeholder="Số lượng" value={newProduct.stock_quantity} onChange={(e) => setNewProduct({ ...newProduct, stock_quantity: e.target.value })} required />
+=======
+            <input type="number" placeholder="Số lượng" value={newProduct.stock} onChange={(e) => setNewProduct({ ...newProduct, stock: e.target.value })} required />
+>>>>>>> ad613c645a1e5aa79626dabeeb46f7142289713b
             <input type="number" placeholder="ID danh mục" value={newProduct.category_id} onChange={(e) => setNewProduct({ ...newProduct, category_id: e.target.value })} required />
             <input type="text" placeholder="URL hình ảnh" value={newProduct.image_url} onChange={(e) => setNewProduct({ ...newProduct, image_url: e.target.value })} />
             <button type="submit">Thêm sản phẩm</button>
@@ -119,7 +131,11 @@ const AdminProductList = () => {
                 <td>{product.product_id}</td>
                 <td>{product.name}</td>
                 <td>{product.price.toLocaleString()} VND</td>
+<<<<<<< HEAD
                 <td>{product.stock_quantity}</td>
+=======
+                <td>{product.stock}</td>
+>>>>>>> ad613c645a1e5aa79626dabeeb46f7142289713b
                 <td>{product.category_id}</td>
                 <td>
                   <img src={product.image_url} alt={product.name} />
