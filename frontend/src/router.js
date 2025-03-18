@@ -12,10 +12,7 @@ import AdminRegister from "./page/admin/login-singup/Register/AdminRegister";
 import Dashboard from "./page/admin/Dashboard/Dashboard";
 import Adminlayout from "./page/admin/theme/masterLayout_admin";
 import AdminOrderList from "./page/admin/component/thongke/OrderList";
-<<<<<<< HEAD
 import Profile from "./page/user/TrangCN";
-=======
->>>>>>> ad613c645a1e5aa79626dabeeb46f7142289713b
 const RouterCustom = () => {
     return (
         <CartProvider>
@@ -27,10 +24,7 @@ const RouterCustom = () => {
                 <Route path="/login" element={<MasterLayout><Login /></MasterLayout>} />
                 <Route path="/search" element={<MasterLayout><SearchResults /></MasterLayout>} />
                 <Route path="/cart" element={<MasterLayout><Cart /></MasterLayout>} />
-<<<<<<< HEAD
                 <Route path="/personal" element={<MasterLayout><Profile/></MasterLayout>} />
-=======
->>>>>>> ad613c645a1e5aa79626dabeeb46f7142289713b
 
                 {/* Admin Routes - KHÔNG CÓ Header/Footer */}
                 <Route path="/admin/dashboard" element={<Adminlayout><Dashboard /></Adminlayout>} />
