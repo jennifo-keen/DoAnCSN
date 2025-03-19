@@ -9,23 +9,36 @@ const AdminLogin = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
+
   const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
-
+  
     try {
       const response = await axios.post("http://localhost:5000/api/admin/login", {
         email,
         password,
       });
-      localStorage.setItem("adminToken", response.data.token);
-      alert("Đăng nhập thành công!");
-      navigate("/admin/dashboard");
+  
+      // In dữ liệu trả về để kiểm tra
+      console.log(response.data); // Kiểm tra token và user
+  
+      if (response.data && response.data.token && response.data.user) {
+        // Lưu token và thông tin người dùng vào localStorage
+        localStorage.setItem("adminToken", response.data.token);
+        localStorage.setItem("adminInfo", JSON.stringify(response.data.user));
+  
+        alert("Đăng nhập thành công!");
+        navigate("/admin/dashboard");  // Điều hướng đến trang quản lý admin
+      } else {
+        setError("Dữ liệu đăng nhập không hợp lệ.");
+      }
     } catch (err) {
+      console.error("Lỗi khi đăng nhập:", err);
       setError(err.response?.data?.message || "Lỗi đăng nhập!");
     }
   };
-
+  
   return (
     <div className="logincontainer">
       <div className="login-box">
@@ -55,6 +68,7 @@ const AdminLogin = () => {
             />
           </div>
           <button type="submit" className="login-button">Sign In</button>
+          
         </form>
         <p className="forgot-password">
           Have a good time ! ♾️

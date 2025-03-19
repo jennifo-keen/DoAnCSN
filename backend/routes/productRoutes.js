@@ -116,18 +116,41 @@ router.get('/search', async (req, res) => {
   }
 });
 
+router.get('admin/search', async (req, res) => {
+  const { keyword } = req.query;
+  if (!keyword) {
+    return res.status(400).json({ message: 'Vui lòng nhập từ khóa' });
+  }
+
+  try {
+    const [rows] = await db.query(
+      'SELECT * FROM products WHERE name LIKE ? COLLATE utf8mb4_unicode_ci',
+      [`%${keyword}%`]
+    );
+
+    if (rows.length > 0) {
+      res.json(rows);
+    } else {
+      res.status(404).json({ message: 'Không tìm thấy sản phẩm nào' });
+    }
+  } catch (error) {
+    console.error('Lỗi khi tìm kiếm sản phẩm:', error);
+    res.status(500).json({ message: 'Lỗi server' });
+  }
+});
+
 // API thêm sản phẩm
 router.post('/products', async (req, res) => {
-  const { name, description, price, stock, category_id, image_url } = req.body;
+  const { name, description, price, stock_quantity, category_id, image_url } = req.body;
 
-  if (!name || !price || !stock || !category_id) {
+  if (!name || !price || !stock_quantity || !category_id ||!category_id ||!image_url) {
     return res.status(400).json({ message: 'Vui lòng cung cấp đầy đủ thông tin sản phẩm' });
   }
 
   try {
     await db.query(
-      'INSERT INTO products (name, description, price, stock, category_id, image_url) VALUES (?, ?, ?, ?, ?, ?)',
-      [name, description, price, stock, category_id, image_url]
+      'INSERT INTO products (name, description, price, stock_quantity, category_id, image_url) VALUES (?, ?, ?, ?, ?, ?)',
+      [name, description, price, stock_quantity, category_id, image_url]
     );
     res.status(201).json({ message: 'Thêm sản phẩm thành công' });
   } catch (error) {

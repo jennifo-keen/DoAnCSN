@@ -14,7 +14,7 @@ const Menu = () => {
   useEffect(() => {
     const fetchRings = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/loai1", {
+        const response = await axios.get("http://localhost:5000/api/category/1", {
           params: { category_id: 1 } // Gửi category_id = 1 để lấy nhẫn cầu hôn
         });
         setRings(response.data);
@@ -26,7 +26,7 @@ const Menu = () => {
     // Gọi API để lấy danh sách nhẫn cưới (category_id = 2)
     const fetchWeddingRings = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/loai2", {
+        const response = await axios.get("http://localhost:5000/api/category/2", {
           params: { category_id: 2 } // Gửi category_id = 2 để lấy nhẫn cưới
         });
         setWeddingRings(response.data);
@@ -38,7 +38,7 @@ const Menu = () => {
     // Gọi API để lấy danh sách trang sức (category_id = 3)
     const fetchJewelry = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/loai3", {
+        const response = await axios.get("http://localhost:5000/api/category/3", {
           params: { category_id: 3 } // Gửi category_id = 3 để lấy trang sức
         });
         setJewelry(response.data);

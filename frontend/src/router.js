@@ -13,6 +13,7 @@ import Dashboard from "./page/admin/Dashboard/Dashboard";
 import Adminlayout from "./page/admin/theme/masterLayout_admin";
 import AdminOrderList from "./page/admin/component/thongke/OrderList";
 import Profile from "./page/user/TrangCN";
+import SearchResults_admin from "./page/admin/component/SearchResults/SearchResults";
 const RouterCustom = () => {
     return (
         <CartProvider>
@@ -31,6 +32,7 @@ const RouterCustom = () => {
                 <Route path="/admin/login" element={<AdminLogin />} />
                 <Route path="/admin/register" element={<AdminRegister />} />
                 <Route path="/admin/oderlist" element={<Adminlayout><AdminOrderList /></Adminlayout>} />
+                <Route path="/admin/search" element={<Adminlayout><SearchResults_admin/> </Adminlayout>} />
             </Routes>
         </CartProvider>
     );
