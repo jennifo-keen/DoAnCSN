@@ -1,45 +1,221 @@
-/*----------------------- footer -----------------------*/
-    footer{
+/*----------------------- Footer -----------------------*/
+
+.footer-wrapper {
     padding-top: 50px;
-    }
-    .footer_1{
+    background-color: #f9f9f9; /* Thêm màu nền nhẹ để footer nổi bật */
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  /* Section 1: Logo and Links */
+  .footer-section-1 {
     display: flex;
     justify-content: space-between;
-    padding:10px 170px;
-    }
-    .footer_logo{
-    height:20vh;
-    }
-    .footer_conn h2{
+    padding: 20px 170px; /* Tăng padding để tạo không gian thoáng hơn */
+    flex-wrap: wrap; /* Cho phép các phần tử xuống dòng trên màn hình nhỏ */
+  }
+  
+  /* Logo */
+  .footer-logo {
+    height: 20vh; /* Giữ kích thước logo */
+    max-height: 150px; /* Giới hạn chiều cao tối đa để không quá to */
+    width: auto;
+  }
+  
+  /* Connection sections (Sản phẩm, Liên Hệ, Hỗ trợ) */
+  .footer-connection {
+    flex: 1;
+    min-width: 200px; /* Đảm bảo mỗi cột có chiều rộng tối thiểu */
+    margin: 0 15px;
+  }
+  
+  .footer-connection h2 {
     color: #b5a69a;
-    padding-bottom: 10px;
-    }
-    .footer_conn ul li {
+    padding-bottom: 15px;
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+  
+  /* Links list */
+  .footer-links {
+    padding: 0;
+    margin: 0;
+  }
+  
+  .footer-item {
     list-style-type: none;
-    padding: 10px 0 ;
-    }
-    .footer_conn ul li a{
+    padding: 8px 0;
+  }
+  
+  .footer-item a {
     text-decoration: none;
-    color: black;
-    }
-    .footer_conn ul li a:hover{
+    color: #333;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+  }
+  
+  .footer-item a:hover {
+    color: #b5a69a;
     text-decoration: underline;
-    }
-    .hr{
-    width: 70%; /* Độ dài của đường kẻ ngang */
-    border: none; /* Xóa đường viền mặc định của <hr> */
-    border-top: 1px solid #b5a69ab5; /* Đặt độ dày và màu sắc cho đường kẻ */
-    margin: 20px auto; /* Căn giữa đường kẻ ngang */
-    }
-    .footer_2{
+  }
+  
+  /* Divider */
+  .footer-divider {
+    width: 70%;
+    border: none;
+    border-top: 1px solid #b5a69ab5;
+    margin: 30px auto;
+  }
+  
+  /* Section 2: Company Info and Certification */
+  .footer-section-2 {
     display: flex;
-    padding: 0 170px;
     justify-content: space-between;
-    }
-    .footer_2_text p{
-    padding: 10px 10px;
-    }
-    .footer_2_img{
+    padding: 0 170px 30px 170px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  
+  /* Company info text */
+  .footer-section-2-text p {
+    padding: 8px 0;
+    font-size: 0.9rem;
+    color: #555;
+  }
+  
+  /* Certification image */
+  .footer-section-2-img {
     height: 10vh;
+    max-height: 60px; /* Giới hạn chiều cao tối đa */
+    width: auto;
     padding-right: 50px;
+  }
+  
+  /* Media queries for responsiveness */
+  @media (max-width: 1024px) {
+    .footer-wrapper {
+      padding-top: 40px;
     }
+  
+    .footer-section-1 {
+      padding: 20px 50px; /* Giảm padding trên tablet */
+      gap: 20px; /* Thêm khoảng cách giữa các cột khi xuống dòng */
+    }
+  
+    .footer-logo {
+      max-height: 120px; /* Giảm kích thước logo */
+    }
+  
+    .footer-connection h2 {
+      font-size: 1.3rem;
+    }
+  
+    .footer-item a {
+      font-size: 0.9rem;
+    }
+  
+    .footer-section-2 {
+      padding: 0 50px 20px 50px;
+    }
+  
+    .footer-section-2-text p {
+      font-size: 0.85rem;
+    }
+  
+    .footer-section-2-img {
+      max-height: 50px;
+      padding-right: 30px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .footer-wrapper {
+      padding-top: 30px;
+    }
+  
+    .footer-section-1 {
+      flex-direction: column; /* Xếp dọc các cột trên mobile */
+      align-items: center;
+      padding: 20px 30px;
+      text-align: center;
+    }
+  
+    .footer-logo {
+      max-height: 100px;
+      margin-bottom: 20px;
+    }
+  
+    .footer-connection {
+      margin: 15px 0;
+    }
+  
+    .footer-connection h2 {
+      font-size: 1.2rem;
+    }
+  
+    .footer-item a {
+      font-size: 0.85rem;
+    }
+  
+    .footer-divider {
+      width: 90%;
+      margin: 20px auto;
+    }
+  
+    .footer-section-2 {
+      flex-direction: column;
+      align-items: center;
+      padding: 0 30px 20px 30px;
+      text-align: center;
+    }
+  
+    .footer-section-2-text p {
+      font-size: 0.8rem;
+    }
+  
+    .footer-section-2-img {
+      max-height: 40px;
+      padding-right: 0;
+      margin-top: 15px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .footer-wrapper {
+      padding-top: 20px;
+    }
+  
+    .footer-section-1 {
+      padding: 15px 20px;
+    }
+  
+    .footer-logo {
+      max-height: 80px;
+    }
+  
+    .footer-connection h2 {
+      font-size: 1.1rem;
+    }
+  
+    .footer-item a {
+      font-size: 0.8rem;
+    }
+  
+    .footer-divider {
+      width: 95%;
+      margin: 15px auto;
+    }
+  
+    .footer-section-2 {
+      padding: 0 20px 15px 20px;
+    }
+  
+    .footer-section-2-text p {
+      font-size: 0.75rem;
+    }
+  
+    .footer-section-2-img {
+      max-height: 35px;
+      margin-top: 10px;
+    }
+  }

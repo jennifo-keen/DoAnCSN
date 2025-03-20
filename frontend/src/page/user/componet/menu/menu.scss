@@ -1,51 +1,54 @@
-/* ---------------------------- menu ----------------------------*/
-
-.menu{
-    display: flex;
-    justify-self: center;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    background-color: #dbd5d0 ;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.086);
-    width: 100%;
-    justify-content: space-between;
-}
-.list{
-    padding-left:154px ;
+/* Main menu container */
+.menu-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #dbd5d0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.086);
+  width: 100%;
+  box-sizing: border-box;
 }
 
-/* Style cho nút menu */
-.dropbtn {
+/* List of dropdowns */
+.menu-list {
+  display: flex;
+  gap: 30px;
+  padding-left: 20px;
+}
+
+/* Style for the dropdown button */
+.menu-dropbtn {
   background-color: #dbd5d0;
   color: #474543;
-  padding: 16px;
+  padding: 10px 16px;
   font-size: 16px;
   border: none;
   cursor: pointer;
   text-align: center;
-
+  white-space: nowrap;
+  font-weight: 500;
 }
 
-/* Style cho menu dropdown */
-.dropdown {
+/* Style for the dropdown container */
+.menu-dropdown {
   position: relative;
   display: inline-block;
   transition: all 0.3s ease-in-out;
 }
 
-/* Ẩn nội dung dropdown mặc định */
-.dropdown-content {
+/* Style for the dropdown content */
+.menu-dropdown-content {
   display: none;
   position: absolute;
   background-color: #dbd5d0;
   min-width: 160px;
   box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
   z-index: 1;
-
 }
 
-/* Các mục trong dropdown */
-.dropdown-content a {
+/* Style for the links inside the dropdown */
+.menu-dropdown-content a {
   color: rgb(0, 0, 0);
   padding: 12px 16px;
   text-decoration: none;
@@ -53,47 +56,177 @@
   transition: all 0.3s ease-in-out;
 }
 
-/* Hiển thị nội dung khi di chuột vào menu */
-.dropdown:hover .dropdown-content {
+/* Show dropdown content on hover */
+.menu-dropdown:hover .menu-dropdown-content {
   display: block;
 }
 
-/* Thay đổi màu khi hover vào các mục trong menu */
-.dropdown-content a:hover {
+/* Change background color on hover for dropdown items */
+.menu-dropdown-content a:hover {
   background-color: #edeae6;
 }
 
-.search-box {
-    display: flex;
-    border: 1px ;
-    border-radius: 40px;
-    background-color: #f5f5f5;
-    padding-left: 15px;
-    height: 50px;
-    margin-right: 170px;
+/* Style for the search box */
+.menu-search-box {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+  max-width: 300px;
+  width: 100%;
 }
-.search-box input {
-    border: none;
-    outline: none;
-    padding-left: 20px;
-    background-color: #f5f5f5;
-    border-radius: 40px;
-    width: 15vw;
-    font-size: 18px;
-    transform: translateY(-10px)
-}
-.search-box button {
-    background: none;
-    border: none; 
-    cursor: pointer; /* đưa chuột vô thì sẽ đổi thành hình bàn tay*/
-    padding-right: 20px;
-    padding-top: 10px;
 
+/* Wrapper for input and button */
+.menu-search-input-wrapper {
+  position: relative; /* Để định vị icon bên trong input */
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 40px;
+  background-color: #f5f5f5;
+  height: 40px;
+  width: 100%;
 }
-.timkiem img{
-    height: 30px;
 
+/* Style for the search input */
+.menu-search-input-wrapper input {
+  border: none;
+  outline: none;
+  background-color: transparent; /* Bỏ background để hòa với wrapper */
+  border-radius: 40px;
+  width: 100%;
+  font-size: 16px;
+  padding: 0 40px 0 15px; /* Thêm padding bên phải để chừa chỗ cho icon */
+  height: 100%;
 }
-.img{
-    padding-bottom: 50px;
+
+/* Style for the search button */
+.menu-search-input-wrapper .menu-search-button {
+  position: absolute;
+  right: 10px; /* Đặt icon bên phải ô input */
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 0;
+}
+
+/* Style for the search icon */
+.menu-search-input-wrapper .menu-search-button img {
+  height: 20px; /* Giảm kích thước icon để vừa với ô input */
+  width: 20px;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 1024px) {
+  .menu-wrapper {
+      flex-direction: row;
+      padding: 10px;
+  }
+
+  .menu-list {
+      padding-left: 10px;
+      gap: 20px;
+  }
+
+  .menu-dropbtn {
+      padding: 8px 12px;
+      font-size: 14px;
+  }
+
+  .menu-search-box {
+      margin-right: 10px;
+      max-width: 250px;
+  }
+
+  .menu-search-input-wrapper input {
+      font-size: 14px;
+      padding: 0 35px 0 10px; /* Điều chỉnh padding trên tablet */
+  }
+
+  .menu-search-input-wrapper .menu-search-button img {
+      height: 18px;
+      width: 18px;
+  }
+}
+
+@media (max-width: 768px) {
+  .menu-wrapper {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 10px;
+  }
+
+  .menu-list {
+      width: 100%;
+      padding-left: 0;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 10px;
+  }
+
+  .menu-dropbtn {
+      font-size: 14px;
+      padding: 8px 10px;
+  }
+
+  .menu-dropdown-content {
+      min-width: 120px;
+  }
+
+  .menu-dropdown-content a {
+      padding: 10px 12px;
+      font-size: 14px;
+  }
+
+  .menu-search-box {
+      margin: 10px 0 0 0;
+      width: 100%;
+      max-width: 100%;
+      justify-content: center;
+  }
+
+  .menu-search-input-wrapper input {
+      font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .menu-wrapper {
+      padding: 5px;
+  }
+
+  .menu-list {
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+  }
+
+  .menu-dropbtn {
+      font-size: 12px;
+      padding: 6px 8px;
+  }
+
+  .menu-dropdown-content {
+      min-width: 100px;
+  }
+
+  .menu-dropdown-content a {
+      font-size: 12px;
+      padding: 8px 10px;
+  }
+
+  .menu-search-input-wrapper {
+      height: 36px;
+  }
+
+  .menu-search-input-wrapper input {
+      font-size: 12px;
+      padding: 0 30px 0 8px; /* Điều chỉnh padding trên mobile */
+  }
+
+  .menu-search-input-wrapper .menu-search-button img {
+      height: 16px;
+      width: 16px;
+  }
 }

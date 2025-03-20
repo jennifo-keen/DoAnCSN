@@ -1,21 +1,20 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios"; // Cài axios nếu chưa có
+import axios from "axios";
 import "./menu.scss";
 
 const Menu = () => {
   const [keyword, setKeyword] = useState("");
-  const [rings, setRings] = useState([]); // state lưu danh sách nhẫn cầu hôn
-  const [weddingRings, setWeddingRings] = useState([]); // state lưu danh sách nhẫn cưới
-  const [jewelry, setJewelry] = useState([]); // state lưu danh sách trang sức
+  const [rings, setRings] = useState([]);
+  const [weddingRings, setWeddingRings] = useState([]);
+  const [jewelry, setJewelry] = useState([]);
   const navigate = useNavigate();
 
-  // Gọi API để lấy danh sách nhẫn cầu hôn (category_id = 1)
   useEffect(() => {
     const fetchRings = async () => {
       try {
         const response = await axios.get("http://localhost:5000/api/category/1", {
-          params: { category_id: 1 } // Gửi category_id = 1 để lấy nhẫn cầu hôn
+          params: { category_id: 1 }
         });
         setRings(response.data);
       } catch (error) {
@@ -23,11 +22,10 @@ const Menu = () => {
       }
     };
 
-    // Gọi API để lấy danh sách nhẫn cưới (category_id = 2)
     const fetchWeddingRings = async () => {
       try {
         const response = await axios.get("http://localhost:5000/api/category/2", {
-          params: { category_id: 2 } // Gửi category_id = 2 để lấy nhẫn cưới
+          params: { category_id: 2 }
         });
         setWeddingRings(response.data);
       } catch (error) {
@@ -35,11 +33,10 @@ const Menu = () => {
       }
     };
 
-    // Gọi API để lấy danh sách trang sức (category_id = 3)
     const fetchJewelry = async () => {
       try {
         const response = await axios.get("http://localhost:5000/api/category/3", {
-          params: { category_id: 3 } // Gửi category_id = 3 để lấy trang sức
+          params: { category_id: 3 }
         });
         setJewelry(response.data);
       } catch (error) {
@@ -50,7 +47,7 @@ const Menu = () => {
     fetchRings();
     fetchWeddingRings();
     fetchJewelry();
-  }, []); // Chạy 1 lần khi component mount
+  }, []);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -60,68 +57,65 @@ const Menu = () => {
   };
 
   return (
-    <div className="menu">
-      <div className="list">
-        <div className="dropdown">
-          <button className="dropbtn">Nhẫn cầu hôn</button>
-          <div className="dropdown-content">
-            {/* Hiển thị 5 nhẫn đầu tiên */}
+    <div className="menu-wrapper">
+      <div className="menu-list">
+        <div className="menu-dropdown">
+          <button className="menu-dropbtn">Nhẫn cầu hôn</button>
+          <div className="menu-dropdown-content">
             {rings.slice(0, 5).map((ring, index) => (
               <a key={index} href={`/product/${ring.product_id}`}>{ring.name}</a>
             ))}
           </div>
         </div>
 
-        <div className="dropdown">
-          <button className="dropbtn">Nhẫn Cưới</button>
-          <div className="dropdown-content">
-            {/* Hiển thị 5 nhẫn cưới */}
+        <div className="menu-dropdown">
+          <button className="menu-dropbtn">Nhẫn Cưới</button>
+          <div className="menu-dropdown-content">
             {weddingRings.slice(0, 5).map((ring, index) => (
               <a key={index} href={`/product/${ring.product_id}`}>{ring.name}</a>
             ))}
           </div>
         </div>
 
-        <div className="dropdown">
-          <button className="dropbtn">Trang sức</button>
-          <div className="dropdown-content">
-            {/* Hiển thị 5 sản phẩm trang sức */}
+        <div className="menu-dropdown">
+          <button className="menu-dropbtn">Trang sức</button>
+          <div className="menu-dropdown-content">
             {jewelry.slice(0, 5).map((item, index) => (
               <a key={index} href={`/product/${item.product_id}`}>{item.name}</a>
             ))}
           </div>
         </div>
 
-        {/* Các dropdown khác có thể thêm tương tự */}
-        <div className="dropdown">
-          <button className="dropbtn">Khuyến mãi</button>
-          <div className="dropdown-content"></div>
+        <div className="menu-dropdown">
+          <button className="menu-dropbtn">Khuyến mãi</button>
+          <div className="menu-dropdown-content"></div>
         </div>
-        <div className="dropdown">
-          <button className="dropbtn">Tin tức</button>
-          <div className="dropdown-content"></div>
+        <div className="menu-dropdown">
+          <button className="menu-dropbtn">Tin tức</button>
+          <div className="menu-dropdown-content"></div>
         </div>
-        <div className="dropdown">
-          <button className="dropbtn">Liên hệ</button>
-          <div className="dropdown-content"></div>
+        <div className="menu-dropdown">
+          <button className="menu-dropbtn">Liên hệ</button>
+          <div className="menu-dropdown-content"></div>
         </div>
       </div>
 
-      <div className="search-box">
+      <div className="menu-search-box">
         <form onSubmit={handleSearch}>
-          <input
-            type="text"
-            value={keyword}
-            onChange={(e) => setKeyword(e.target.value)}
-            placeholder="Nhập từ khóa..."
-          />
-          <button type="submit">
-            <img
-              style={{ height: "30px", width: "30px" }}
-              src="https://tierra.vn/wp-content/uploads/2024/05/icon-search.png"
-              alt="icon_search"
+          <div className="menu-search-input-wrapper">
+            <input
+              type="text"
+              value={keyword}
+              onChange={(e) => setKeyword(e.target.value)}
+              placeholder="Nhập từ khóa..."
             />
-          </button>
+            <button type="submit" className="menu-search-button">
+              <img
+                src="https://tierra.vn/wp-content/uploads/2024/05/icon-search.png"
+                alt="icon_search"
+              />
+            </button>
+          </div>
         </form>
       </div>
     </div>

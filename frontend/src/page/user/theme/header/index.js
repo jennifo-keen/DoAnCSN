@@ -4,34 +4,34 @@ import { AuthContext } from "../../contexts/login-registerContext";
 import "./header.scss";
 
 const Header = () => {
-  const { user, logout } = useContext(AuthContext); // Lấy user từ context
+  const { user, logout } = useContext(AuthContext);
 
   return (
-    <div className="ds">
-      <div className="header">
-        <div className="connect">
-          <a href="vitri.com" className="local">
+    <div className="header-container">
+      <div className="header-connect-wrapper">
+        <div className="header-connect">
+          <a href="vitri.com" className="header-local">
             <img src="https://www.tierra.vn/wp-content/uploads/2024/04/location.png" alt="Local" />
           </a>
-          <a href="zalo.com" className="zalo">
+          <a href="zalo.com" className="header-zalo">
             <img src="https://www.tierra.vn/wp-content/uploads/2024/04/zalo-ic.png" alt="Zalo" />
           </a>
-          <a href="phone.com" className="phone">
+          <a href="phone.com" className="header-phone">
             <img src="https://www.tierra.vn/wp-content/uploads/2024/04/phone-ic.png" alt="Phone_number" />
           </a>
         </div>
       </div>
-      <div className="logo">
-          <a href="/">
-            <img src="/Logo.png" alt="logo" width="100px" height="60px" />
-          </a>
+      <div className="header-logo">
+        <a href="/">
+          <img src="/Logo.png" alt="logo" />
+        </a>
       </div>
-      <div className="user">
+      <div className="header-user">
         <Link to="/cart">🛒 Giỏ hàng</Link>
         {user ? (
-          <div className="user-info">
+          <div className="header-user-info">
             <a href="/personal">
-            <span>👤 {user.name}</span>
+              <span>👤 {user.name}</span>
             </a>
             <button onClick={logout}>Đăng xuất</button>
           </div>
@@ -42,7 +42,5 @@ const Header = () => {
     </div>
   );
 };
-
-
 
 export default Header;

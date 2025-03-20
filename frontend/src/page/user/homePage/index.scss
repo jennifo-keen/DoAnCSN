@@ -1,50 +1,60 @@
+/* Ensure the menu stays sticky and doesn't overlap with other content */
 .Menu {
     position: sticky;
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 1000; // Đảm bảo menu luôn ở trên cùng
-    background-color: white; // Để menu không bị trong suốt
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); // Hiệu ứng đổ bóng nhẹ
+    z-index: 1000; /* Keep menu on top */
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
+
+/* Make the container more responsive */
 .container {
     position: relative;
-    width: 50%;
-    max-width: 1200px; /* Điều chỉnh kích thước phù hợp */
+    width: 100%; /* Use full width for better responsiveness */
+    max-width: 1200px; /* Keep a max-width for larger screens */
     margin: 0 auto;
     padding-top: 50px;
     overflow: hidden;
+    box-sizing: border-box; /* Ensure padding doesn't affect width */
 }
 
+/* Ensure the background image scales properly */
 .background-image {
     width: 100%;
     height: auto;
     object-fit: cover;
-    filter: brightness(0.95); /* Làm mờ nhẹ hình nền */
+    filter: brightness(0.95);
+    display: block; /* Prevent unwanted spacing */
 }
 
+/* Adjust text-overlay to avoid overlapping */
 .text-overlay {
-    position: absolute;
-    top: 60%;
-    left: 5%;
-    transform: translateY(-50%);
-    color: #333; /* Màu chữ */
-    max-width: 40%;
+    position: relative; /* Change from absolute to relative to prevent overlap */
+    padding: 20px;
+    color: #333;
+    max-width: 90%; /* Allow more flexibility on smaller screens */
+    margin: 0 auto; /* Center the text */
     font-family: "Arial", sans-serif;
+    text-align: center; /* Center-align text for better aesthetics */
 }
 
+/* Style for the heading in text-overlay */
 .text-overlay h2 {
     font-size: 2rem;
     font-weight: bold;
     margin-bottom: 1rem;
 }
 
+/* Style for the paragraph in text-overlay */
 .text-overlay p {
     font-size: 1rem;
     margin-bottom: 1.5rem;
     line-height: 1.6;
 }
 
+/* Style for the call-to-action button */
 .cta-button {
     display: inline-block;
     padding: 0.8rem 1.5rem;
@@ -62,6 +72,58 @@
     color: #000;
     border-bottom: 2px solid #000;
 }
-.hr{
+
+/* Add padding for the hr section */
+.hr {
     padding: 20px;
+}
+
+/* Add media queries for responsiveness */
+@media (max-width: 768px) {
+    /* Adjustments for tablet and smaller screens */
+    .container {
+        padding-top: 30px; /* Reduce padding for smaller screens */
+    }
+
+    .text-overlay {
+        max-width: 100%; /* Use full width on smaller screens */
+        padding: 10px;
+    }
+
+    .text-overlay h2 {
+        font-size: 1.5rem; /* Reduce font size for smaller screens */
+    }
+
+    .text-overlay p {
+        font-size: 0.9rem; /* Slightly smaller font for readability */
+    }
+
+    .cta-button {
+        padding: 0.6rem 1.2rem; /* Adjust button size */
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Adjustments for mobile screens */
+    .container {
+        padding-top: 20px;
+    }
+
+    .text-overlay h2 {
+        font-size: 1.2rem; /* Further reduce font size */
+    }
+
+    .text-overlay p {
+        font-size: 0.8rem;
+    }
+
+    .cta-button {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+    }
+
+    .background-image {
+        height: auto; /* Ensure the image doesn't stretch too much */
+    }
 }

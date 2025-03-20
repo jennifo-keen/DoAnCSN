@@ -1,58 +1,156 @@
-
 /*----------------------- Thiết kế riêng -----------------------*/
 
-.container {
+/* Main container */
+.design-container {
   position: relative;
-  width: 50%;
-  max-width: 1200px; /* Điều chỉnh kích thước phù hợp */
+  width: 100%;
+  max-width: 1000px; /* Giảm max-width từ 1200px xuống 1000px để không quá to trên màn hình lớn */
   margin: 0 auto;
-  padding-top: 50px;
+  padding-top: 40px; /* Giảm padding-top từ 50px xuống 40px */
   overflow: hidden;
+  box-sizing: border-box;
 }
 
-.background-image {
+/* Background image */
+.design-background-image {
   width: 100%;
   height: auto;
   object-fit: cover;
-  filter: brightness(0.95); /* Làm mờ nhẹ hình nền */
+  filter: brightness(0.9);
+  display: block;
 }
 
-.text-overlay {
+/* Text overlay */
+.design-text-overlay {
   position: absolute;
-  top: 60%;
+  top: 50%;
   left: 5%;
   transform: translateY(-50%);
-  color: #333; /* Màu chữ */
-  max-width: 40%;
+  color: #333;
+  max-width: 35%; /* Giảm max-width từ 40% xuống 35% để văn bản không bị tràn */
   font-family: "Arial", sans-serif;
+  padding: 15px; /* Thêm padding để tạo khoảng cách bên trong */
+  box-sizing: border-box;
 }
 
-.text-overlay h2 {
-  font-size: 2rem;
+/* Heading */
+.design-text-overlay h2 {
+  font-size: 2rem; /* Giảm từ 2.5rem xuống 2rem để không quá to trên màn hình lớn */
   font-weight: bold;
   margin-bottom: 1rem;
+  color: #222;
 }
 
-.text-overlay p {
-  font-size: 1rem;
-  margin-bottom: 1.5rem;
+/* Paragraph */
+.design-text-overlay p {
+  font-size: 1rem; /* Giảm từ 1.1rem xuống 1rem */
+  margin-bottom: 1.2rem;
   line-height: 1.6;
+  color: #444;
 }
 
-.cta-button {
+/* Call-to-action button */
+.design-cta-button {
   display: inline-block;
-  padding: 0.8rem 1.5rem;
+  padding: 0.7rem 1.3rem; /* Giảm padding từ 0.8rem 1.5rem */
   background-color: transparent;
   color: #333;
   border: none;
-  font-size: 1rem;
+  font-size: 0.9rem; /* Giảm từ 1rem xuống 0.9rem */
   text-decoration: none;
   font-weight: bold;
   border-bottom: 2px solid #333;
   transition: all 0.3s ease;
 }
 
-.cta-button:hover {
+/* Hover effect for button */
+.design-cta-button:hover {
   color: #000;
   border-bottom: 2px solid #000;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 1024px) {
+  .design-container {
+    padding-top: 30px; /* Giảm padding-top trên tablet */
+    max-width: 900px; /* Giảm max-width trên tablet */
+  }
+
+  .design-text-overlay {
+    max-width: 40%; /* Tăng nhẹ max-width để tận dụng không gian */
+    left: 3%;
+    padding: 10px;
+  }
+
+  .design-text-overlay h2 {
+    font-size: 1.8rem; /* Giảm kích thước chữ */
+  }
+
+  .design-text-overlay p {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+  }
+
+  .design-cta-button {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .design-container {
+    padding-top: 20px;
+    max-width: 100%; /* Bỏ giới hạn max-width để hình ảnh full width */
+  }
+
+  .design-text-overlay {
+    max-width: 50%; /* Tăng max-width để văn bản không bị tràn */
+    top: 50%;
+    left: 5%;
+    padding: 10px;
+  }
+
+  .design-text-overlay h2 {
+    font-size: 1.5rem;
+  }
+
+  .design-text-overlay p {
+    font-size: 0.85rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .design-cta-button {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .design-container {
+    padding-top: 15px;
+  }
+
+  .design-text-overlay {
+    max-width: 70%; /* Tăng max-width để văn bản không bị tràn */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Căn giữa cả theo chiều ngang và dọc */
+    text-align: center;
+    padding: 8px;
+  }
+
+  .design-text-overlay h2 {
+    font-size: 1.3rem;
+  }
+
+  .design-text-overlay p {
+    font-size: 0.8rem;
+    margin-bottom: 0.7rem;
+  }
+
+  .design-cta-button {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.75rem;
+  }
 }
