@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th3 10, 2025 lúc 02:24 AM
+-- Thời gian đã tạo: Th3 21, 2025 lúc 07:57 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
--- Phiên bản PHP: 8.2.12
+-- Phiên bản PHP: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -42,7 +42,8 @@ CREATE TABLE `admin_users` (
 --
 
 INSERT INTO `admin_users` (`admin_id`, `name`, `email`, `password`, `role`, `status`, `created_at`) VALUES
-(1, 'phạm hữu kiên', 'adminnek@gmail.com', '$2b$10$BZO3irMtKJgHovbKZGz2n.Yb1fNe4zAv0nhQ0f8qIHwMeeqIb2UL6', 'staff', 'active', '2025-03-10 00:37:39');
+(1, 'phạm hữu kiên', 'adminnek@gmail.com', '$2b$10$BZO3irMtKJgHovbKZGz2n.Yb1fNe4zAv0nhQ0f8qIHwMeeqIb2UL6', 'staff', 'active', '2025-03-10 00:37:39'),
+(5, 'Hữu Kiên', 'admin01@gmail.com', '$2b$10$hyTwuo3ZrtxndZuGORSnwO.nr9Botuv0/Gvdz1rUl6bH0RkURH/bG', 'staff', 'active', '2025-03-18 23:28:37');
 
 -- --------------------------------------------------------
 
@@ -57,6 +58,14 @@ CREATE TABLE `cart` (
   `quantity` int(11) NOT NULL DEFAULT 1,
   `added_at` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `cart`
+--
+
+INSERT INTO `cart` (`cart_id`, `customer_id`, `product_id`, `quantity`, `added_at`) VALUES
+(2, 1, 24, 1, '2025-03-18 23:03:31'),
+(3, 1, 24, 1, '2025-03-20 00:20:02');
 
 -- --------------------------------------------------------
 
@@ -201,9 +210,8 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`product_id`, `name`, `description`, `price`, `stock_quantity`, `category_id`, `material`, `color`, `image_url`, `weight`, `status`) VALUES
-(1, 'Nhẫn đẹp', 'Chiếc nhẫn kim cương A không chỉ là một món trang sức, mà còn là biểu tượng của sự tinh tế, sang trọng và đẳng cấp. Được chế tác từ chất liệu kim cương tự nhiên cao cấp, sản phẩm sở hữu thiết kế độc đáo với các đường nét mềm mại, tôn lên vẻ đẹp hoàn mỹ của từng viên đá quý.', 190000000, 9999, 1, 'Bạc', 'Trắng', 'https://www.tierra.vn/wp-content/uploads/2024/07/NCH2009_4-1.webp', 19, 'out_of_stock'),
-(2, 'Nhẫn xinh quá trời', 'wow đẹp dữ', 200000000, 999, 2, 'vàng', 'vàng', 'https://www.tierra.vn/wp-content/uploads/2024/08/NCH8417_3-H.webp', 19, 'out_of_stock'),
-(23, 'Nhẫn kim cương A', 'Thiết kế sang trọng A', 150000000, 50, 2, 'kim cương', 'trắng', 'https://www.tierra.vn/wp-content/uploads/2024/08/NCH8415_3-T.webp', 10, 'available'),
+(1, 'Nhẫn đẹpha', NULL, 190000000, 30, 2, 'Bạc', 'Trắng', 'https://www.tierra.vn/wp-content/uploads/2024/07/NCC0046_5-yellow.webp', 19, 'out_of_stock'),
+(23, 'Nhẫn kim cương A', NULL, 150000000, 70, 2, 'kim cương', 'trắng', 'https://www.tierra.vn/wp-content/uploads/2024/08/NCH8415_3-T.webp', 10, 'available'),
 (24, 'Nhẫn kim cương B', 'Thiết kế sang trọng B', 120000000, 30, 2, 'kim cương', 'trắng', 'https://www.tierra.vn/wp-content/uploads/2024/08/NCH8414_3_H.webp', 12, 'available'),
 (25, 'Nhẫn vàng A', 'Thiết kế độc đáo A', 100000000, 20, 2, 'vàng', 'vàng', 'https://www.tierra.vn/wp-content/uploads/2024/08/NCH8414_3_H.webp', 15, 'available'),
 (26, 'Nhẫn vàng B', 'Thiết kế độc đáo B', 900000000, 10, 2, 'vàng', 'vàng', 'https://www.tierra.vn/wp-content/uploads/2024/08/NCH8108_3-T.webp', 8, 'out_of_stock'),
@@ -222,7 +230,9 @@ INSERT INTO `products` (`product_id`, `name`, `description`, `price`, `stock_qua
 (39, 'Nhẫn ruby nhỏ', 'Ruby nhỏ tinh tế', 200000000, 35, 2, 'ruby', 'đỏ', 'https://www.tierra.vn/wp-content/uploads/2024/07/NCH1401-R_04.webp', 9, 'available'),
 (40, 'Nhẫn sapphire nhỏ', 'Sapphire nhỏ quyến rũ', 250000000, 20, 2, 'sapphire', 'xanh', 'https://www.tierra.vn/wp-content/uploads/2024/07/NCH1310_4.webp', 10, 'available'),
 (41, 'Nhẫn emerald nhỏ', 'Emerald nhỏ sang trọng', 230000000, 15, 2, 'emerald', 'xanh lá', 'https://www.tierra.vn/wp-content/uploads/2024/07/NCH1304-R_04.webp', 10, 'available'),
-(42, 'Nhẫn ngọc trai nhỏ', 'Ngọc trai nhỏ thanh lịch', 400000000, 100, 2, 'ngọc trai', 'trắng', 'https://www.tierra.vn/wp-content/uploads/2024/07/NCH1303-R_4.1146-1.webp', 3, 'available');
+(42, 'Nhẫn ngọc trai nhỏ', 'Ngọc trai nhỏ thanh lịch', 400000000, 100, 2, 'ngọc trai', 'trắng', 'https://www.tierra.vn/wp-content/uploads/2024/07/NCH1303-R_4.1146-1.webp', 3, 'available'),
+(44, 'hí', 'hello mí bà', 2222, 22, 1, NULL, NULL, 'https://www.tierra.vn/wp-content/uploads/2024/08/NCH8415_3-T.webp', NULL, 'available'),
+(45, '33', 'xin chào tất cả các bạn đến với chương trình này hôm nay và mình là cái gì đó, đang có ghi để cái mô tả này dài ơi là dài luôn á buồn ngủ quá trời rồi nè mấy đứa ơi huhuhauhsudaushduasdalsdlkal  asdajsdlf asldfasj ', 100000000, 101, 1, NULL, NULL, 'https://www.tierra.vn/wp-content/uploads/2024/08/NCH1319_3-H.webp', NULL, 'available');
 
 -- --------------------------------------------------------
 
@@ -366,13 +376,13 @@ ALTER TABLE `shoppingcart`
 -- AUTO_INCREMENT cho bảng `admin_users`
 --
 ALTER TABLE `admin_users`
-  MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT cho bảng `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT cho bảng `categories`
@@ -414,7 +424,7 @@ ALTER TABLE `productreviews`
 -- AUTO_INCREMENT cho bảng `products`
 --
 ALTER TABLE `products`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT cho bảng `promotions`

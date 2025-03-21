@@ -1,11 +1,146 @@
-.edit-product-container {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+// AdminEditProduct.scss
+
+// Màu sắc chính dựa trên giao diện admin
+$primary-color: #6b48ff; // Màu tím của nút "Sửa"
+$cancel-color: #ff4d4f; // Màu đỏ của nút "Xóa"
+$background-color: #f5f7fa; // Màu nền của trang admin
+$text-color: #333; // Màu chữ chính
+$border-color: #e0e0e0; // Màu viền
+
+.aep-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); // Nền mờ
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.aep-form {
+  background: #fff;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 450px; // Tăng chiều rộng để phù hợp với giao diện admin
+  animation: fadeIn 0.3s ease-in-out;
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
-  
+}
+
+.aep-title {
+  text-align: center;
+  margin-bottom: 24px;
+  color: $text-color;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.aep-input-group {
+  margin-bottom: 16px;
+
+  input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid $border-color;
+    border-radius: 8px;
+    font-size: 14px;
+    color: $text-color;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+    &:focus {
+      border-color: $primary-color;
+      box-shadow: 0 0 0 3px rgba(107, 72, 255, 0.1);
+      outline: none;
+    }
+
+    &::placeholder {
+      color: #999;
+    }
+  }
+}
+
+.aep-button-group {
+  display: flex;
+  gap: 12px; // Khoảng cách giữa các nút
+  margin-top: 24px;
+}
+
+.aep-submit-btn,
+.aep-cancel-btn {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.aep-submit-btn {
+  background-color: $primary-color;
+  color: #fff;
+
+  &:hover:not(:disabled) {
+    background-color: darken($primary-color, 10%);
+    transform: translateY(-1px);
+  }
+
+  &:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+}
+
+.aep-cancel-btn {
+  background-color: $cancel-color;
+  color: #fff;
+
+  &:hover {
+    background-color: darken($cancel-color, 10%);
+    transform: translateY(-1px);
+  }
+}
+
+// Responsive design
+@media (max-width: 480px) {
+  .aep-form {
+    width: 90%;
+    padding: 16px;
+  }
+
+  .aep-title {
+    font-size: 20px;
+  }
+
+  .aep-input-group input {
+    font-size: 12px;
+    padding: 10px;
+  }
+
+  .aep-submit-btn,
+  .aep-cancel-btn {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .aep-button-group {
+    flex-direction: column;
+    gap: 8px;
+  }
+}

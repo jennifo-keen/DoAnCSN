@@ -41,10 +41,8 @@ const AdminLogin = () => {
   
   return (
     <div className="logincontainer">
-      <div className="login-box">
-        <div className="logo">
-            <img src="/Logo.png" alt="logo"/>
-        </div>
+      <div className="loginbox">
+
         <h2>Welcome Back</h2>
         <p className="subtitle">Nhập thông tin đăng nhập để truy cập tài khoản của bạn.</p>
         {error && <p className="error-message">{error}</p>}

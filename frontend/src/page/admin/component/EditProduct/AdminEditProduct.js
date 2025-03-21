@@ -2,22 +2,22 @@ import React, { useState, useEffect } from "react";
 import "./AdminEditProduct.scss";
 
 const AdminEditProduct = ({ product, onClose, onSave }) => {
-  // Khởi tạo state từ product prop
   const [name, setName] = useState(product.name);
   const [price, setPrice] = useState(product.price);
   const [productType, setProductType] = useState(product.product_type);
-  const [imageUrl, setImageUrl] = useState(product.imageUrl || ""); // Giả sử product có trường imageUrl
-  const [stock_quantity, setStockQuantity] = useState(product.stock_quantity || 0); // Giả sử product có trường stock_quantity
+  const [imageUrl, setImageUrl] = useState(product.imageUrl || "");
+  const [stock_quantity, setStockQuantity] = useState(product.stock_quantity || 0);
+  const [description,setdescription]= useState (product.description||0);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    // Khi sản phẩm thay đổi, cập nhật lại state để hiển thị thông tin mới
     setName(product.name);
     setPrice(product.price);
     setProductType(product.product_type);
     setImageUrl(product.imageUrl || "");
     setStockQuantity(product.stock_quantity || 0);
-  }, [product]); // Chạy lại khi product thay đổi
+    setdescription(product.description||0);
+  }, [product]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,8 +28,9 @@ const AdminEditProduct = ({ product, onClose, onSave }) => {
       name,
       price,
       category_id: productType,
-      image_url: imageUrl, // Thêm URL ảnh ở đây
-      stock_quantity, // Thêm stock_quantity ở đây
+      image_url: imageUrl,
+      stock_quantity,
+      description,
     };
 
     try {
@@ -47,7 +48,7 @@ const AdminEditProduct = ({ product, onClose, onSave }) => {
         onSave(updatedProduct);
         onClose();
       } else {
-        alert("Lỗi cập nhật: " + result.message);
+        alert("Thông báo: " + result.message);
       }
     } catch (error) {
       console.error("Lỗi khi cập nhật sản phẩm:", error);
@@ -57,11 +58,11 @@ const AdminEditProduct = ({ product, onClose, onSave }) => {
   };
 
   return (
-    <div className="edit-product-container">
-      <form onSubmit={handleSubmit}>
-        <h2>Sửa sản phẩm</h2>
+    <div className="aep-modal-overlay">
+      <form className="aep-form" onSubmit={handleSubmit}>
+        <h2 className="aep-title">Sửa sản phẩm</h2>
 
-        <div className="input-container">
+        <div className="aep-input-group">
           <input
             type="text"
             placeholder="Tên sản phẩm"
@@ -70,7 +71,7 @@ const AdminEditProduct = ({ product, onClose, onSave }) => {
             required
           />
         </div>
-        <div className="input-container">
+        <div className="aep-input-group">
           <input
             type="number"
             placeholder="Giá"
@@ -79,7 +80,7 @@ const AdminEditProduct = ({ product, onClose, onSave }) => {
             required
           />
         </div>
-        <div className="input-container">
+        <div className="aep-input-group">
           <input
             type="text"
             placeholder="Loại sản phẩm"
@@ -88,7 +89,7 @@ const AdminEditProduct = ({ product, onClose, onSave }) => {
             required
           />
         </div>
-        <div className="input-container">
+        <div className="aep-input-group">
           <input
             type="number"
             placeholder="Số lượng sản phẩm"
@@ -97,7 +98,16 @@ const AdminEditProduct = ({ product, onClose, onSave }) => {
             required
           />
         </div>
-        <div className="input-container">
+        <div className="aep-input-group">
+          <input
+            type="text"
+            placeholder="Mô tả sản phẩm"
+            value={description}
+            onChange={(e) => setdescription(e.target.value)}
+            required
+          />
+        </div>
+        <div className="aep-input-group">
           <input
             type="text"
             placeholder="URL ảnh sản phẩm"
@@ -106,12 +116,14 @@ const AdminEditProduct = ({ product, onClose, onSave }) => {
           />
         </div>
 
-        <button type="submit" disabled={loading}>
-          {loading ? "Đang cập nhật..." : "Cập nhật"}
-        </button>
-        <button type="button" className="close-btn" onClick={onClose}>
-          Đóng
-        </button>
+        <div className="aep-button-group">
+          <button type="submit" className="aep-submit-btn" disabled={loading}>
+            {loading ? "Đang cập nhật..." : "Cập nhật"}
+          </button>
+          <button type="button" className="aep-cancel-btn" onClick={onClose}>
+            Đóng
+          </button>
+        </div>
       </form>
     </div>
   );

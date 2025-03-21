@@ -23,7 +23,8 @@ const AdminProductList = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     if (keyword.trim()) {
-      navigate(`/search?keyword=${encodeURIComponent(keyword)}`);
+      // Điều hướng đến API tìm kiếm dành cho admin
+      navigate(`/search/admin?keyword=${encodeURIComponent(keyword)}`);
     }
   };
   useEffect(() => {

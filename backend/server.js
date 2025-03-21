@@ -9,7 +9,6 @@ const app = express();
 
 // Middleware
 app.use(cors({
-    origin: 'http://localhost:3000'  // Chỉ cho phép frontend từ domain này gửi yêu cầu
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

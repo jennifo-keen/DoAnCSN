@@ -116,28 +116,6 @@ router.get('/search', async (req, res) => {
   }
 });
 
-router.get('admin/search', async (req, res) => {
-  const { keyword } = req.query;
-  if (!keyword) {
-    return res.status(400).json({ message: 'Vui lòng nhập từ khóa' });
-  }
-
-  try {
-    const [rows] = await db.query(
-      'SELECT * FROM products WHERE name LIKE ? COLLATE utf8mb4_unicode_ci',
-      [`%${keyword}%`]
-    );
-
-    if (rows.length > 0) {
-      res.json(rows);
-    } else {
-      res.status(404).json({ message: 'Không tìm thấy sản phẩm nào' });
-    }
-  } catch (error) {
-    console.error('Lỗi khi tìm kiếm sản phẩm:', error);
-    res.status(500).json({ message: 'Lỗi server' });
-  }
-});
 
 // API thêm sản phẩm
 router.post('/products', async (req, res) => {

@@ -1,71 +1,174 @@
- .Sanpham {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
-    margin-top: 20px;
-    padding: 10px 50px;
+// SearchResults.scss
+
+// Định nghĩa các biến màu sắc dựa trên giao diện admin
+$primary-color: #6b48ff; // Màu tím cho nút "Chỉnh sửa"
+$delete-color: #ff4d4f; // Màu đỏ cho nút "Xóa"
+$background-color: #f5f7fa; // Màu nền của trang admin
+$text-color: #333; // Màu chữ chính
+$border-color: #e0e0e0; // Màu viền
+$card-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); // Bóng cho card
+
+.admin-product-list {
+  padding: 24px;
+  background: $background-color;
+  min-height: 100vh;
+
+  h2 {
+    font-size: 24px;
+    font-weight: 600;
+    color: $text-color;
+    margin-bottom: 24px;
+    text-align: center;
   }
-  
-  .product-card {
-    background-color: white;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s, box-shadow 0.3s;
-  
-    &:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
-    }
-  }
-  
-  .product-card img {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .product-card h3 {
-    font-size: 18px;
-    font-weight: bold;
-    margin: 10px;
-    color: #333;
-  }
-  
-  .product-card p {
+
+  p {
     font-size: 16px;
-    color: #777;
-    margin: 0 10px 10px;
+    color: #666;
+    text-align: center;
   }
-  
-  .product-card .price {
-    font-weight: bold;
-    color: #ff5c5c;
-    font-size: 18px;
+}
+
+.product-card {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: $card-shadow;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 24px;
+  width: 100%;
+  max-width: 300px; // Giới hạn chiều rộng card giống trong hình
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
   }
-  
-  .product-card a {
+
+  a {
     text-decoration: none;
     color: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px;
   }
-  
-  .product-card a:hover h3 {
-    color: #ff5c5c;
+
+  img {
+    width: 100%;
+    height: 150px;
+    object-fit: contain; // Đảm bảo hình ảnh không bị méo
+    margin-bottom: 12px;
   }
-  
-  .no-results {
-    text-align: center;
+
+  h3 {
     font-size: 18px;
-    color: #555;
-    margin-top: 30px;
+    font-weight: 600;
+    color: $text-color;
+    margin: 8px 0;
+    text-align: center;
   }
-  
-  /* Responsive */
-  @media (max-width: 768px) {
-    .Sanpham {
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+
+  p {
+    font-size: 14px;
+    color: #666;
+    margin: 4px 0;
+    text-align: center;
+  }
+}
+
+.admin-actions {
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+  background: #f9f9f9;
+  border-top: 1px solid $border-color;
+
+  button {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+
+    &:first-child {
+      background-color: $primary-color;
+      color: #fff;
+
+      &:hover {
+        background-color: darken($primary-color, 10%);
+        transform: translateY(-1px);
+      }
+    }
+
+    &:last-child {
+      background-color: $delete-color;
+      color: #fff;
+
+      &:hover {
+        background-color: darken($delete-color, 10%);
+        transform: translateY(-1px);
+      }
     }
   }
-  
+}
+
+// Responsive design: Sắp xếp các card thành lưới trên màn hình lớn
+@media (min-width: 768px) {
+  .admin-product-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    justify-content: center;
+
+    h2 {
+      width: 100%;
+      text-align: left;
+    }
+
+    .product-card {
+      width: calc(33.33% - 16px); // 3 card trên 1 hàng
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-product-list {
+    padding: 16px;
+
+    h2 {
+      font-size: 20px;
+    }
+
+    .product-card {
+      max-width: 100%;
+    }
+
+    .admin-actions {
+      flex-direction: column;
+      gap: 8px;
+
+      button {
+        padding: 8px;
+        font-size: 12px;
+      }
+    }
+  }
+}
+.back-to-home {
+  margin: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.back-to-home:hover {
+  background-color: #45a049;
+}
