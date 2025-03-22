@@ -47,19 +47,27 @@ const Cart = () => {
     );
   };
 
-  const handleCheckout = () => {
-    // Xử lý thanh toán
-    alert("Tiến hành thanh toán!");
+  const handleCheckout = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/api/cart/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ customer_id: user.id })
+      });
+  
+      const data = await response.json();
+  
+      if (response.ok) {
+        window.location.href = `/payment?orderId=${data.orderId}`;
+      } else {
+        alert(data.message);
+      }
+    } catch (error) {
+      console.error("Checkout error:", error);
+      alert("Có lỗi xảy ra khi thanh toán.");
+    }
   };
-
-  if (loading) {
-    return <p>Giỏ hàng trống...</p>; // Hiển thị thông báo khi đang tải giỏ hàng
-  }
-
-  if (cartItems.length === 0) {
-    return <p>Giỏ hàng của bạn trống.</p>; // Nếu giỏ hàng trống
-  }
-
+  
   return (
     <div className="cart-container">
       <h2>Giỏ hàng của bạn</h2>

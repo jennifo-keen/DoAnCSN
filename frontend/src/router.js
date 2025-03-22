@@ -14,6 +14,8 @@ import Adminlayout from "./page/admin/theme/masterLayout_admin";
 import AdminOrderList from "./page/admin/component/thongke/OrderList";
 import Profile from "./page/user/TrangCN";
 import AdminSearchResults from "./page/admin/component/SearchResults/SearchResults";
+import Payment from "./page/user/DonHang/payment";
+import Order from "./page/user/DonHang/order";
 const RouterCustom = () => {
     return (
         <CartProvider>
@@ -26,7 +28,8 @@ const RouterCustom = () => {
                 <Route path="/search" element={<MasterLayout><SearchResults /></MasterLayout>} />
                 <Route path="/cart" element={<MasterLayout><Cart /></MasterLayout>} />
                 <Route path="/personal" element={<MasterLayout><Profile/></MasterLayout>} />
-
+                <Route path="/payment" element={<MasterLayout><Payment /></MasterLayout>} />
+                <Route path="/order" element={<MasterLayout><Order /></MasterLayout>} />
                 {/* Admin Routes - KHÔNG CÓ Header/Footer */}
                 <Route path="/admin/dashboard" element={<Adminlayout><Dashboard /></Adminlayout>} />
                 <Route path="/admin/login" element={<AdminLogin />} />
