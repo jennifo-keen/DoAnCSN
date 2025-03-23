@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../contexts/login-registerContext"; // Import AuthContext để lấy thông tin người dùng
-import "./Cart.scss"
+import "./Cart.scss";
+
 const Cart = () => {
   const { user } = useContext(AuthContext); // Lấy thông tin người dùng
   const [cartItems, setCartItems] = useState([]); // Lưu trữ sản phẩm trong giỏ hàng
@@ -36,10 +37,28 @@ const Cart = () => {
     );
   };
 
-  const handleRemove = (productId) => {
-    // Xóa sản phẩm khỏi giỏ hàng
-    setCartItems((prevItems) => prevItems.filter((item) => item.product_id !== productId));
+  const handleRemove = async (productId) => {
+    try {
+      // Gửi yêu cầu xóa sản phẩm khỏi giỏ hàng trong database
+      const response = await fetch(`http://localhost:5000/api/cart/remove/${user.id}/${productId}`, {
+        method: 'DELETE', // Sử dụng phương thức DELETE
+        headers: { 'Content-Type': 'application/json' },
+      });
+  
+      const data = await response.json();
+  
+      if (response.ok) {
+        // Nếu xóa thành công, cập nhật lại giỏ hàng trên giao diện
+        setCartItems((prevItems) => prevItems.filter((item) => item.product_id !== productId));
+      } else {
+        alert(data.message || 'Không thể xóa sản phẩm');
+      }
+    } catch (error) {
+      console.error("Lỗi khi xóa sản phẩm:", error);
+      alert("Có lỗi xảy ra khi xóa sản phẩm.");
+    }
   };
+  
 
   const calculateTotal = () => {
     return cartItems.reduce(
@@ -67,37 +86,50 @@ const Cart = () => {
       alert("Có lỗi xảy ra khi thanh toán.");
     }
   };
-  
+
   return (
     <div className="cart-container">
       <h2>Giỏ hàng của bạn</h2>
       <div className="cart-content">
-        {/* Left side: Cart items */}
-        <div className="cart-items">
-          {cartItems.map((item) => (
-            <div key={item.product_id} className="cart-item">
-              <img src={item.image_url} alt={item.name} width="100" />
-              <div className="cart-item-info">
-                <p>{item.name}</p>
-                <p>Giá: {formatPrice(item.price)} VND</p>
-              </div>
-              <input
-                type="number"
-                value={item.quantity}
-                min="1"
-                onChange={(e) => handleQuantityChange(item.product_id, parseInt(e.target.value))}
-              />
-              <button onClick={() => handleRemove(item.product_id)}>Xóa</button>
+        {/* Hiển thị trạng thái tải dữ liệu */}
+        {loading ? (
+          <p>Đang tải dữ liệu...</p> // Thông báo khi giỏ hàng đang tải
+        ) : (
+          <>
+            {/* Left side: Cart items */}
+            <div className="cart-items">
+              {Array.isArray(cartItems) && cartItems.length > 0 ? (
+                cartItems.map((item) => (
+                  <div key={item.product_id} className="cart-item">
+                    <img src={item.image_url} alt={item.name} width="100" />
+                    <div className="cart-item-info">
+                      <p>{item.name}</p>
+                      <p>Giá: {formatPrice(item.price)} VND</p>
+                    </div>
+                    <input
+                      type="number"
+                      value={item.quantity}
+                      min="1"
+                      onChange={(e) => handleQuantityChange(item.product_id, parseInt(e.target.value))}
+                    />
+                    <button onClick={() => handleRemove(item.product_id)}>Xóa</button>
+                  </div>
+                ))
+              ) : (
+                <p>Giỏ hàng của bạn hiện tại đang trống.</p>
+              )}
             </div>
-          ))}
-        </div>
 
-        {/* Right side: Cart summary */}
-        <div className="cart-summary">
-          <h3>Tổng Giỏ Hàng</h3>
-          <p>Tổng cộng: {formatPrice(calculateTotal())} VND</p>
-          <button onClick={handleCheckout} className="checkout-button">Tiến hành thanh toán</button>
-        </div>
+            {/* Right side: Cart summary */}
+            {cartItems.length > 0 && (
+              <div className="cart-summary">
+                <h3>Tổng Giỏ Hàng</h3>
+                <p>Tổng cộng: {formatPrice(calculateTotal())} VND</p>
+                <button onClick={handleCheckout} className="checkout-button">Tiến hành thanh toán</button>
+              </div>
+            )}
+          </>
+        )}
       </div>
     </div>
   );

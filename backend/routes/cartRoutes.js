@@ -108,4 +108,27 @@ router.post('/cart/checkout', async (req, res) => {
   }
 });
 
+
+// API xóa sản phẩm khỏi giỏ hàng của người dùng
+router.delete('/cart/remove/:customerId/:productId', async (req, res) => {
+  const { customerId, productId } = req.params;
+  try {
+    const query = `
+      DELETE FROM cart
+      WHERE customer_id = ? AND product_id = ?
+    `;
+    
+    const [result] = await db.query(query, [customerId, productId]);
+
+    if (result.affectedRows > 0) {
+      res.status(200).json({ message: 'Sản phẩm đã được xóa khỏi giỏ hàng' });
+    } else {
+      res.status(404).json({ message: 'Không tìm thấy sản phẩm trong giỏ hàng' });
+    }
+  } catch (error) {
+    console.error('Lỗi khi xóa sản phẩm:', error);
+    res.status(500).json({ message: 'Lỗi server' });
+  }
+});
+
 module.exports = router;

@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/api/order', orderRoutes);
 // Routes
-app.use('/api', cartRoutes);  // Đảm bảo route này đã được khai báo đúng
+app.use('/api', cartRoutes);
 app.use('/api', productRoutes);
 app.use('/api', adminAuthRoutes);
 app.use('/api', adminRegisterRoutes);
