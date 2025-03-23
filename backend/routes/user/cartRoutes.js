@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../config/db'); // Đảm bảo kết nối với DB
+const db = require('../../config/db');
 
 // Thêm sản phẩm vào giỏ hàng
 router.post('/cart', (req, res) => {
@@ -51,7 +51,7 @@ router.get('/cart/:customerId', async (req, res) => {
   }
 });
 
-// ✅ API xử lý thanh toán (thêm vào đây)
+// API xử lý thanh toán
 router.post('/cart/checkout', async (req, res) => {
   const { customer_id } = req.body;
 
@@ -72,15 +72,25 @@ router.post('/cart/checkout', async (req, res) => {
     // 2. Tính tổng tiền
     const total_price = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
-    // 3. Tạo đơn hàng
+    // 3. Lấy thông tin người nhận từ bảng customers
+    const [customerInfo] = await db.query(
+      `SELECT phone, shipping_address FROM customers WHERE customer_id = ?`,
+      [customer_id]
+    );
+
+    if (!customerInfo || !customerInfo[0]) {
+      return res.status(404).json({ message: 'Thông tin người nhận không hợp lệ' });
+    }
+
+    // 4. Tạo đơn hàng
     const [orderResult] = await db.query(
-      `INSERT INTO orders (customer_id, total_price, status, created_at)
-       VALUES (?, ?, 'pending', NOW())`,
-      [customer_id, total_price]
+      `INSERT INTO orders (customer_id, total_price, status, created_at, shipping_address)
+       VALUES (?, ?, 'Chưa thanh toán', NOW(), ?)`,
+      [customer_id, total_price, customerInfo[0].shipping_address]
     );
     const orderId = orderResult.insertId;
 
-    // 4. Tạo chi tiết đơn hàng
+    // 5. Tạo chi tiết đơn hàng
     const orderDetails = cartItems.map(item => [
       orderId,
       item.product_id,
@@ -93,21 +103,20 @@ router.post('/cart/checkout', async (req, res) => {
       [orderDetails]
     );
 
-    // 5. Xóa giỏ hàng
+    // 6. Xóa giỏ hàng
     await db.query(`DELETE FROM cart WHERE customer_id = ?`, [customer_id]);
 
-    // 6. Trả kết quả về frontend
+    // 7. Trả kết quả về frontend
     res.status(200).json({
       message: 'Tạo đơn hàng thành công',
       orderId
     });
 
   } catch (error) {
-    console.error('Lỗi khi tạo đơn hàng:', error); // dòng cũ
-    res.status(500).json({ message: 'Lỗi server khi tạo đơn hàng', error: error.message }); // thêm error.message vào response
+    console.error('Lỗi khi tạo đơn hàng:', error);
+    res.status(500).json({ message: 'Lỗi server khi tạo đơn hàng', error: error.message });
   }
 });
-
 
 // API xóa sản phẩm khỏi giỏ hàng của người dùng
 router.delete('/cart/remove/:customerId/:productId', async (req, res) => {

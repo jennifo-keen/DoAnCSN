@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import './order.scss';
 
 const Order = () => {
-  const { orderId } = useParams();  // Lấy orderId từ URL
+  const { orderId } = useParams();
   const [orderInfo, setOrderInfo] = useState(null);
 
   useEffect(() => {
     if (orderId) {
-      // Lấy thông tin tổng quan đơn hàng từ API
       fetch(`http://localhost:5000/api/order/${orderId}`)
         .then((response) => response.json())
         .then((data) => setOrderInfo(data))
@@ -16,12 +16,11 @@ const Order = () => {
   }, [orderId]);
 
   return (
-    <div>
-      <h2>Chi tiết đơn hàng #{orderId}</h2>
+    <div className="order-container">
+      <h2>Chi tiết đơn hàng: ID {orderId}</h2>
 
-      {/* Hiển thị thông tin tổng quan của đơn hàng */}
       {orderInfo ? (
-        <div>
+        <div className="order-info">
           <h3>Thông tin đơn hàng</h3>
           <p><strong>Order ID:</strong> {orderInfo.order_id}</p>
           <p><strong>Tình trạng:</strong> {orderInfo.status}</p>
@@ -32,7 +31,7 @@ const Order = () => {
           <p><strong>Trạng thái thanh toán:</strong> {orderInfo.payment_status}</p>
         </div>
       ) : (
-        <p>Không tìm thấy thông tin đơn hàng.</p>
+        <p className="not-found">Không tìm thấy thông tin đơn hàng.</p>
       )}
     </div>
   );

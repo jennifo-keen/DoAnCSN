@@ -20,7 +20,7 @@ const RouterCustom = () => {
     return (
         <CartProvider>
             <Routes>
-                {/* User Routes - CÓ Header/Footer */}
+                {/* User Routes */}
                 <Route path="/" element={<MasterLayout><HomePage /></MasterLayout>} />
                 <Route path="/product/:productId" element={<MasterLayout><SanPham /></MasterLayout>} />
                 <Route path="/signup" element={<MasterLayout><SignUp /></MasterLayout>} />
@@ -29,8 +29,10 @@ const RouterCustom = () => {
                 <Route path="/cart" element={<MasterLayout><Cart /></MasterLayout>} />
                 <Route path="/personal" element={<MasterLayout><Profile/></MasterLayout>} />
                 <Route path="/payment" element={<MasterLayout><Payment /></MasterLayout>} />
-                <Route path="/order" element={<MasterLayout><Order /></MasterLayout>} />
-                {/* Admin Routes - KHÔNG CÓ Header/Footer */}
+                <Route path="/order/:orderId" element={<MasterLayout><Order /></MasterLayout>} />
+
+
+                {/* Admin Routes */}
                 <Route path="/admin/dashboard" element={<Adminlayout><Dashboard /></Adminlayout>} />
                 <Route path="/admin/login" element={<AdminLogin />} />
                 <Route path="/admin/register" element={<AdminRegister />} />

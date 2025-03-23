@@ -1,12 +1,13 @@
 const express = require('express');
 const cors = require('cors');
-const productRoutes = require('./routes/productRoutes');
-const cartRoutes = require('./routes/cartRoutes');
+const productRoutes = require('./routes/user/productRoutes');
+const cartRoutes = require('./routes/user/cartRoutes');
 const adminAuthRoutes = require('./routes/admin/adminAuthRoutes');
 const adminRegisterRoutes = require('./routes/admin/adminRegisterRoutes');
-const orderRoutes = require('./routes/orderRoutes');
+const orderRoutes = require('./routes/user/orderRoutes');
 const app = express();
-const orderDetailRoutes = require('./routes/orderdetail');
+const orderDetailRoutes = require('./routes/user/orderdetail');
+
 // Middleware
 app.use(cors({
 }));

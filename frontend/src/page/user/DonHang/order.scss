@@ -1,0 +1,73 @@
+/* Order.css */
+.order-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Playfair Display', serif; /* Font chữ sang trọng */
+  }
+  
+  .order-container h2 {
+    text-align: center;
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #e6c7a3; /* Đường viền nhẹ nhàng */
+    padding-bottom: 10px;
+  }
+  
+  .order-container h3 {
+    font-size: 22px;
+    color: #5a3e36; /* Màu nâu đậm sang trọng */
+    margin-top: 20px;
+    margin-bottom: 15px;
+  }
+  
+  .order-container p {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.6;
+    margin: 10px 0;
+  }
+  
+  .order-container p strong {
+    color: #333;
+    font-weight: 600;
+  }
+  
+  .order-info {
+    background-color: #f9f5f0; /* Màu nền nhạt tinh tế */
+    padding: 20px;
+    border-radius: 5px;
+    border: 1px solid #e6c7a3; /* Viền nhẹ nhàng */
+  }
+  
+  /* Thông báo khi không tìm thấy đơn hàng */
+  .order-container .not-found {
+    text-align: center;
+    font-size: 18px;
+    color: #888;
+    margin-top: 20px;
+  }
+  
+  /* Responsive design */
+  @media (max-width: 600px) {
+    .order-container {
+      margin: 20px;
+      padding: 15px;
+    }
+  
+    .order-container h2 {
+      font-size: 24px;
+    }
+  
+    .order-container h3 {
+      font-size: 20px;
+    }
+  
+    .order-container p {
+      font-size: 14px;
+    }
+  }

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../config/db'); // Kết nối database
+const db = require('../../config/db');
 const bcrypt = require('bcrypt');
 
 // API lấy danh sách sản phẩm
