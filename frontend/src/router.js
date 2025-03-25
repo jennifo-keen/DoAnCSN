@@ -16,6 +16,7 @@ import Profile from "./page/user/TrangCN";
 import AdminSearchResults from "./page/admin/component/SearchResults/SearchResults";
 import Payment from "./page/user/DonHang/payment";
 import Order from "./page/user/DonHang/order";
+import OrderList from "./page/admin/component/thongke/OrderList";
 const RouterCustom = () => {
     return (
         <CartProvider>
@@ -38,6 +39,7 @@ const RouterCustom = () => {
                 <Route path="/admin/register" element={<AdminRegister />} />
                 <Route path="/admin/oderlist" element={<Adminlayout><AdminOrderList /></Adminlayout>} />
                 <Route path="/search/admin" element={<Adminlayout><AdminSearchResults/> </Adminlayout>} />
+                <Route path="/admin/orderlist" element={<Adminlayout><OrderList/> </Adminlayout>} />
             </Routes>
         </CartProvider>
     );

@@ -2,20 +2,19 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { FaCheckCircle } from 'react-icons/fa';
 import { AuthContext } from '../contexts/login-registerContext';
+import styles from './Payment.module.scss';
 
 const Payment = () => {
   const [recipientInfo, setRecipientInfo] = useState(null);
-  const [paymentMethods] = useState(['Ngân hàng', 'Trả sau']);
-  const [editMode, setEditMode] = useState(false);  // Trạng thái chỉnh sửa thông tin
+  const [paymentMethods] = useState(['Trả sau', 'Ngân hàng ( hiện chưa hỗ trợ )']);
+  const [editMode, setEditMode] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const orderId = queryParams.get('orderId');
   
-  // Lấy thông tin người dùng từ AuthContext
   const { user } = useContext(AuthContext);
 
-  // Lấy thông tin người nhận từ API
   useEffect(() => {
     if (user && orderId) {
       fetch(`http://localhost:5000/api/order/recipient-info/${user.id}`)
@@ -29,7 +28,6 @@ const Payment = () => {
     }
   }, [user, orderId]);
 
-  // Cập nhật thông tin người nhận khi người dùng chỉnh sửa
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setRecipientInfo(prevInfo => ({
@@ -38,7 +36,6 @@ const Payment = () => {
     }));
   };
 
-  // Cập nhật thông tin người nhận trong cơ sở dữ liệu
   const handleSaveChanges = async () => {
     if (recipientInfo) {
       try {
@@ -54,10 +51,8 @@ const Payment = () => {
           }),
         });
 
-        // const data = await response.json();
-
         if (response.ok) {
-          setEditMode(false);  // Tắt chế độ chỉnh sửa sau khi lưu thành công
+          setEditMode(false);
           alert('Cập nhật thông tin thành công!');
         } else {
           alert('Không thể cập nhật thông tin!');
@@ -78,115 +73,78 @@ const Payment = () => {
   };
 
   return (
-    <div style={styles.container}>
-      <FaCheckCircle size={50} color="#4CAF50" style={styles.icon} />
-      <h2 style={styles.text}>Thanh toán thành công</h2>
+    <div className={styles.PaymentContainer}>
+      <div className={styles.PaymentHeader}>
+        <FaCheckCircle size={50} color="#4CAF50" className={styles.PaymentIcon} />
+        <h2 className={styles.PaymentText}>Thanh toán thành công</h2>
+      </div>
 
-      {/* Hiển thị thông tin người nhận hoặc các trường input để chỉnh sửa */}
-      {recipientInfo ? (
-        <div style={styles.info}>
-          {editMode ? (
-            <div>
-              <label>Tên người nhận:</label>
+      <div className={styles.PaymentInfo}>
+        {recipientInfo ? (
+          editMode ? (
+            <div className={styles.PaymentEditForm}>
+              <label className={styles.PaymentLabel}>Tên người nhận:</label>
               <input
                 type="text"
                 name="name"
                 value={recipientInfo.name || ''}
                 onChange={handleInputChange}
+                className={styles.PaymentInput}
               />
-              <br />
-              <label>Số điện thoại:</label>
+              <label className={styles.PaymentLabel}>Số điện thoại:</label>
               <input
                 type="text"
                 name="phone"
                 value={recipientInfo.phone || ''}
                 onChange={handleInputChange}
+                className={styles.PaymentInput}
               />
-              <br />
-              <label>Địa chỉ giao hàng:</label>
+              <label className={styles.PaymentLabel}>Địa chỉ giao hàng:</label>
               <input
                 type="text"
                 name="shipping_address"
                 value={recipientInfo.shipping_address || ''}
                 onChange={handleInputChange}
+                className={styles.PaymentInput}
               />
             </div>
           ) : (
-            <div>
+            <div className={styles.PaymentDetails}>
               <p><strong>Tên người nhận:</strong> {recipientInfo.name || 'Không có thông tin'}</p>
               <p><strong>Số điện thoại:</strong> {recipientInfo.phone || 'Không có thông tin'}</p>
               <p><strong>Địa chỉ giao hàng:</strong> {recipientInfo.shipping_address || 'Không có thông tin'}</p>
             </div>
-          )}
-        </div>
-      ) : (
-        <p>Đang tải thông tin người nhận...</p>
-      )}
+          )
+        ) : (
+          <p>Đang tải thông tin người nhận...</p>
+        )}
+      </div>
 
-      {/* Hiển thị các phương thức thanh toán */}
-      <div style={styles.paymentMethods}>
+      <div className={styles.PaymentMethods}>
         <p><strong>Phương thức thanh toán:</strong></p>
-        <select>
+        <select className={styles.PaymentSelect}>
           {paymentMethods.map((method, index) => (
             <option key={index} value={method}>{method}</option>
           ))}
         </select>
       </div>
 
-      {/* Nút Xác nhận hoặc Lưu thay đổi */}
-      {editMode ? (
-        <button onClick={handleSaveChanges} style={styles.button}>
-          Lưu thay đổi
+      <div className={styles.PaymentActions}>
+        {editMode ? (
+          <button onClick={handleSaveChanges} className={styles.PaymentButton}>
+            Lưu thay đổi
+          </button>
+        ) : (
+          <button onClick={() => setEditMode(true)} className={styles.PaymentButton}>
+            Chỉnh sửa thông tin
+          </button>
+        )}
+        <button onClick={handleConfirm} className={styles.PaymentConfirmButton}>
+          Xác nhận
         </button>
-      ) : (
-        <button onClick={() => setEditMode(true)} style={styles.button}>
-          Chỉnh sửa thông tin
-        </button>
-      )}
-      
-      <button onClick={handleConfirm} style={styles.button}>
-        Xác nhận
-      </button>
+      </div>
     </div>
   );
-};
-
-const styles = {
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: '100vh',
-    backgroundColor: '#f9f9f9',
-    textAlign: 'center',
-  },
-  icon: {
-    marginBottom: '20px',
-  },
-  text: {
-    fontSize: '24px',
-    fontWeight: 'bold',
-    color: '#4CAF50',
-  },
-  button: {
-    marginTop: '20px',
-    padding: '10px 20px',
-    backgroundColor: '#4CAF50',
-    color: 'white',
-    border: 'none',
-    borderRadius: '5px',
-    cursor: 'pointer',
-    fontSize: '16px',
-  },
-  info: {
-    marginTop: '20px',
-    textAlign: 'left',
-    fontSize: '18px',
-  },
-  paymentMethods: {
-    marginTop: '20px',
-  },
 };
 
 export default Payment;

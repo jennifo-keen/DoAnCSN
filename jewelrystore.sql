@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th3 21, 2025 lúc 07:57 AM
+-- Thời gian đã tạo: Th3 25, 2025 lúc 06:57 PM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.0.30
 
@@ -59,14 +59,6 @@ CREATE TABLE `cart` (
   `added_at` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Đang đổ dữ liệu cho bảng `cart`
---
-
-INSERT INTO `cart` (`cart_id`, `customer_id`, `product_id`, `quantity`, `added_at`) VALUES
-(2, 1, 24, 1, '2025-03-18 23:03:31'),
-(3, 1, 24, 1, '2025-03-20 00:20:02');
-
 -- --------------------------------------------------------
 
 --
@@ -111,7 +103,7 @@ CREATE TABLE `customers` (
 --
 
 INSERT INTO `customers` (`customer_id`, `name`, `email`, `password`, `phone`, `shipping_address`, `billing_address`, `date_created`, `status`) VALUES
-(1, 'Kiên Phạm Hữu', 'kienpham159753@gmail.com', '$2b$10$BZaMloO5q8DzZjAMsr6ieOgrGwqTshNMwPjiJy9zay5IjnyeYXcWm', NULL, NULL, NULL, '2025-01-16 23:10:40', 'active'),
+(1, 'Jennnifo nhe', 'kienpham159753@gmail.com', '$2b$10$BZaMloO5q8DzZjAMsr6ieOgrGwqTshNMwPjiJy9zay5IjnyeYXcWm', '0914642747', 'Số 3 Đường Trần Hưng tuấn', NULL, '2025-01-16 23:10:40', 'active'),
 (2, 'Kiên Phạm Hữu', 'kphamhuu2@gmail.com', '$2b$10$a0KgVTeVdfTOdQQQc/ZbUOpGhrrxToZk.4Gt/aiFQwSHzaLwYCaEW', NULL, NULL, NULL, '2025-01-16 23:13:53', 'active'),
 (3, 'kiên', 'k@gmail.com', '$2b$10$P.pw28CtXSHfLhK2e/0/AuaREMrphDnCQxmt1wFaMnymxa359dNVO', NULL, NULL, NULL, '2025-01-16 23:15:55', 'active'),
 (4, 'ki', 'i@gmail.com', '$2b$10$YC7ZVSvENv9hudBuqSnISOYaBJvqexPpLiMweMqQUM87mfqi4niGC', NULL, NULL, NULL, '2025-01-16 23:20:29', 'active'),
@@ -121,21 +113,8 @@ INSERT INTO `customers` (`customer_id`, `name`, `email`, `password`, `phone`, `s
 (8, 'kiên nek', 'heloo@gmail.com', '$2b$10$/YempwyWPbJQjJB1LXDW3Oh1zXyZichlLR/TMCqW5mlnhIoubSZxe', '111', NULL, NULL, '2025-03-06 00:21:14', 'active'),
 (9, 'Jenni', 'hihi@gmail.com', '$2b$10$2/bihwuMpfX/9Ew62X99nOCZ773RBFcdQmpy50LsggF8XJxDk2xkO', '111111', NULL, NULL, '2025-03-08 01:26:13', 'active'),
 (10, 'xinchao@gmail.com', 'xinchao@gmail.com', '$2b$10$awM85t8rMwu5BxXH98MB..mveW1xyzEhsdiVOWv2Ycq4y0dAGHT8S', '123123', NULL, NULL, '2025-03-09 22:45:06', 'active'),
-(11, 'Kiên', 'admintest@gmail.com', '$2b$10$i7JKrsqy/T9PRWmMBijEo./3RV2uvV1Pe3aHAY.kyVpxGuRA0ScD6', '1111', NULL, NULL, '2025-03-09 23:14:21', 'active');
-
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `orderdetails`
---
-
-CREATE TABLE `orderdetails` (
-  `order_detail_id` int(11) NOT NULL,
-  `order_id` int(11) NOT NULL,
-  `product_id` int(11) NOT NULL,
-  `quantity` int(11) NOT NULL,
-  `unit_price` decimal(10,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+(11, 'Kiên', 'admintest@gmail.com', '$2b$10$i7JKrsqy/T9PRWmMBijEo./3RV2uvV1Pe3aHAY.kyVpxGuRA0ScD6', '1111', NULL, NULL, '2025-03-09 23:14:21', 'active'),
+(12, 'Phạm Hồng Thi', 'h@gmail.com', '$2b$10$HWSwDsdCt3n6q4isUQdqhetNbA3gnXSxOK8gCYTi4H1Prithiro6W', '0849999027', NULL, NULL, '2025-03-21 14:29:26', 'active');
 
 -- --------------------------------------------------------
 
@@ -148,12 +127,116 @@ CREATE TABLE `orders` (
   `customer_id` int(11) NOT NULL,
   `order_date` datetime DEFAULT current_timestamp(),
   `shipping_date` datetime DEFAULT NULL,
-  `status` enum('pending','processed','shipped','completed') DEFAULT 'pending',
-  `total_amount` decimal(10,2) NOT NULL,
-  `payment_method` varchar(100) DEFAULT NULL,
-  `shipping_address` text DEFAULT NULL,
-  `payment_status` enum('unpaid','paid','failed') DEFAULT 'unpaid'
+  `status` varchar(50) DEFAULT 'pending',
+  `total_amount` decimal(15,2) DEFAULT 0.00,
+  `payment_method` varchar(50) DEFAULT NULL,
+  `shipping_address` varchar(255) DEFAULT NULL,
+  `payment_status` varchar(50) DEFAULT 'unpaid',
+  `total_price` decimal(15,2) NOT NULL,
+  `created_at` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `orders`
+--
+
+INSERT INTO `orders` (`order_id`, `customer_id`, `order_date`, `shipping_date`, `status`, `total_amount`, `payment_method`, `shipping_address`, `payment_status`, `total_price`, `created_at`) VALUES
+(1, 12, '2025-03-22 13:20:03', NULL, 'pending', 0.00, NULL, NULL, 'unpaid', 190000000.00, '2025-03-22 13:20:03'),
+(2, 12, '2025-03-22 14:25:41', NULL, 'pending', 0.00, NULL, NULL, 'unpaid', 190000000.00, '2025-03-22 14:25:41'),
+(3, 12, '2025-03-22 14:30:41', NULL, 'pending', 0.00, NULL, NULL, 'unpaid', 190000000.00, '2025-03-22 14:30:41'),
+(4, 12, '2025-03-22 14:35:41', NULL, 'pending', 0.00, NULL, NULL, 'unpaid', 800000000.00, '2025-03-22 14:35:41'),
+(5, 12, '2025-03-22 14:43:21', NULL, 'pending', 0.00, NULL, NULL, 'unpaid', 300000000.00, '2025-03-22 14:43:21'),
+(6, 12, '2025-03-22 14:50:59', NULL, 'pending', 0.00, NULL, NULL, 'unpaid', 120000000.00, '2025-03-22 14:50:59'),
+(7, 12, '2025-03-22 15:02:31', NULL, 'pending', 0.00, NULL, NULL, 'unpaid', 120000000.00, '2025-03-22 15:02:31'),
+(8, 12, '2025-03-22 15:22:44', NULL, 'pending', 0.00, NULL, NULL, 'unpaid', 120000000.00, '2025-03-22 15:22:44'),
+(9, 12, '2025-03-22 16:20:42', NULL, 'pending', 0.00, NULL, NULL, 'unpaid', 150000000.00, '2025-03-22 16:20:42'),
+(10, 12, '2025-03-22 16:28:42', NULL, 'pending', 0.00, NULL, NULL, 'unpaid', 120000000.00, '2025-03-22 16:28:42'),
+(11, 12, '2025-03-22 17:14:14', NULL, 'pending', 0.00, NULL, NULL, 'unpaid', 120000000.00, '2025-03-22 17:14:14'),
+(12, 12, '2025-03-22 17:15:21', NULL, 'pending', 0.00, NULL, NULL, 'unpaid', 780000000.00, '2025-03-22 17:15:21'),
+(13, 12, '2025-03-22 17:35:46', NULL, 'pending', 0.00, NULL, NULL, 'unpaid', 190000000.00, '2025-03-22 17:35:46'),
+(14, 1, '2025-03-22 17:47:19', NULL, 'pending', 0.00, NULL, NULL, 'unpaid', 120000000.00, '2025-03-22 17:47:19'),
+(15, 1, '2025-03-23 22:31:56', NULL, 'pending', 0.00, NULL, NULL, 'unpaid', 2080000000.00, '2025-03-23 22:31:56'),
+(16, 1, '2025-03-23 22:35:51', NULL, 'pending', 0.00, NULL, NULL, 'unpaid', 150000000.00, '2025-03-23 22:35:51'),
+(17, 1, '2025-03-23 22:37:26', NULL, 'pending', 0.00, NULL, NULL, 'unpaid', 120000000.00, '2025-03-23 22:37:26'),
+(18, 1, '2025-03-23 22:40:50', NULL, 'pending', 0.00, NULL, NULL, 'unpaid', 120000000.00, '2025-03-23 22:40:50'),
+(19, 1, '2025-03-23 22:50:28', NULL, 'pending', 0.00, NULL, NULL, 'unpaid', 190000000.00, '2025-03-23 22:50:28'),
+(20, 1, '2025-03-23 22:55:33', NULL, 'pending', 0.00, NULL, NULL, 'unpaid', 120000000.00, '2025-03-23 22:55:33'),
+(21, 1, '2025-03-23 22:57:05', NULL, 'pending', 0.00, NULL, NULL, 'unpaid', 100000000.00, '2025-03-23 22:57:05'),
+(22, 1, '2025-03-23 23:01:05', NULL, 'pending', 0.00, NULL, NULL, 'unpaid', 150000000.00, '2025-03-23 23:01:05'),
+(23, 1, '2025-03-23 23:06:47', NULL, 'pending', 0.00, NULL, NULL, 'unpaid', 190000000.00, '2025-03-23 23:06:47'),
+(24, 1, '2025-03-23 23:14:08', NULL, 'pending', 0.00, NULL, NULL, 'unpaid', 150000000.00, '2025-03-23 23:14:08'),
+(25, 1, '2025-03-23 23:42:58', NULL, 'pending', 0.00, NULL, NULL, 'unpaid', 100000000.00, '2025-03-23 23:42:58'),
+(26, 1, '2025-03-23 23:49:24', NULL, 'pending', 0.00, NULL, NULL, 'unpaid', 120000000.00, '2025-03-23 23:49:24'),
+(27, 1, '2025-03-23 23:53:53', NULL, 'pending', 0.00, NULL, NULL, 'unpaid', 900000000.00, '2025-03-23 23:53:53'),
+(28, 1, '2025-03-23 23:54:13', NULL, 'pending', 0.00, NULL, NULL, 'unpaid', 190000000.00, '2025-03-23 23:54:13'),
+(29, 1, '2025-03-23 23:56:24', NULL, 'pending', 0.00, NULL, NULL, 'unpaid', 120000000.00, '2025-03-23 23:56:24'),
+(30, 1, '2025-03-23 23:56:43', NULL, 'pending', 0.00, NULL, NULL, 'unpaid', 190000000.00, '2025-03-23 23:56:43'),
+(31, 1, '2025-03-23 23:56:54', NULL, 'Đang thanh toán', 0.00, NULL, NULL, 'unpaid', 350000000.00, '2025-03-23 23:56:54'),
+(32, 1, '2025-03-24 00:05:12', NULL, 'Chưa thanh toán', 0.00, NULL, 'số 10 cái gì đó', 'unpaid', 100000000.00, '2025-03-24 00:05:12'),
+(33, 1, '2025-03-24 20:00:39', NULL, 'Chưa thanh toán', 0.00, NULL, 'số 10 cái gì đó', 'unpaid', 120000000.00, '2025-03-24 20:00:39'),
+(34, 1, '2025-03-24 20:02:20', NULL, 'Chưa thanh toán', 0.00, NULL, 'Số 3 Đường Trần Hưng tuấn', 'unpaid', 120000000.00, '2025-03-24 20:02:20'),
+(35, 1, '2025-03-24 23:45:39', NULL, 'Chưa thanh toán', 0.00, NULL, 'Số 3 Đường Trần Hưng tuấn', 'unpaid', 740000000.00, '2025-03-24 23:45:39');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `order_details`
+--
+
+CREATE TABLE `order_details` (
+  `order_detail_id` int(11) NOT NULL,
+  `order_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `price` decimal(15,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `order_details`
+--
+
+INSERT INTO `order_details` (`order_detail_id`, `order_id`, `product_id`, `quantity`, `price`) VALUES
+(1, 1, 1, 1, 190000000.00),
+(2, 2, 1, 1, 190000000.00),
+(3, 3, 1, 1, 190000000.00),
+(4, 4, 28, 1, 800000000.00),
+(5, 5, 23, 2, 150000000.00),
+(6, 6, 24, 1, 120000000.00),
+(7, 7, 24, 1, 120000000.00),
+(8, 8, 24, 1, 120000000.00),
+(9, 9, 23, 1, 150000000.00),
+(10, 10, 24, 1, 120000000.00),
+(11, 11, 24, 1, 120000000.00),
+(12, 12, 24, 2, 120000000.00),
+(13, 12, 29, 1, 300000000.00),
+(14, 12, 24, 2, 120000000.00),
+(15, 13, 1, 1, 190000000.00),
+(16, 14, 24, 1, 120000000.00),
+(17, 15, 1, 2, 190000000.00),
+(18, 15, 26, 1, 900000000.00),
+(19, 15, 28, 1, 800000000.00),
+(20, 16, 23, 1, 150000000.00),
+(21, 17, 24, 1, 120000000.00),
+(22, 18, 24, 1, 120000000.00),
+(23, 19, 1, 1, 190000000.00),
+(24, 20, 24, 1, 120000000.00),
+(25, 21, 25, 1, 100000000.00),
+(26, 22, 23, 1, 150000000.00),
+(27, 23, 1, 1, 190000000.00),
+(28, 24, 23, 1, 150000000.00),
+(29, 25, 25, 1, 100000000.00),
+(30, 26, 24, 1, 120000000.00),
+(31, 27, 26, 1, 900000000.00),
+(32, 28, 1, 1, 190000000.00),
+(33, 29, 24, 1, 120000000.00),
+(34, 30, 1, 1, 190000000.00),
+(35, 31, 31, 1, 350000000.00),
+(36, 32, 25, 1, 100000000.00),
+(37, 33, 24, 1, 120000000.00),
+(38, 34, 24, 1, 120000000.00),
+(39, 35, 23, 1, 150000000.00),
+(40, 35, 30, 1, 400000000.00),
+(41, 35, 1, 1, 190000000.00);
 
 -- --------------------------------------------------------
 
@@ -311,19 +394,19 @@ ALTER TABLE `customers`
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- Chỉ mục cho bảng `orderdetails`
---
-ALTER TABLE `orderdetails`
-  ADD PRIMARY KEY (`order_detail_id`),
-  ADD KEY `order_id` (`order_id`),
-  ADD KEY `product_id` (`product_id`);
-
---
 -- Chỉ mục cho bảng `orders`
 --
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`order_id`),
   ADD KEY `customer_id` (`customer_id`);
+
+--
+-- Chỉ mục cho bảng `order_details`
+--
+ALTER TABLE `order_details`
+  ADD PRIMARY KEY (`order_detail_id`),
+  ADD KEY `order_id` (`order_id`),
+  ADD KEY `product_id` (`product_id`);
 
 --
 -- Chỉ mục cho bảng `payments`
@@ -382,7 +465,7 @@ ALTER TABLE `admin_users`
 -- AUTO_INCREMENT cho bảng `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
 
 --
 -- AUTO_INCREMENT cho bảng `categories`
@@ -394,19 +477,19 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT cho bảng `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
---
--- AUTO_INCREMENT cho bảng `orderdetails`
---
-ALTER TABLE `orderdetails`
-  MODIFY `order_detail_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT cho bảng `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+
+--
+-- AUTO_INCREMENT cho bảng `order_details`
+--
+ALTER TABLE `order_details`
+  MODIFY `order_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT cho bảng `payments`
@@ -462,17 +545,17 @@ ALTER TABLE `categories`
   ADD CONSTRAINT `categories_ibfk_1` FOREIGN KEY (`parent_category_id`) REFERENCES `categories` (`category_id`);
 
 --
--- Các ràng buộc cho bảng `orderdetails`
---
-ALTER TABLE `orderdetails`
-  ADD CONSTRAINT `orderdetails_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`),
-  ADD CONSTRAINT `orderdetails_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`);
-
---
 -- Các ràng buộc cho bảng `orders`
 --
 ALTER TABLE `orders`
   ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`customer_id`);
+
+--
+-- Các ràng buộc cho bảng `order_details`
+--
+ALTER TABLE `order_details`
+  ADD CONSTRAINT `order_details_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `order_details_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`);
 
 --
 -- Các ràng buộc cho bảng `payments`

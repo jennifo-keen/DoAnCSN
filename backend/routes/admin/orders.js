@@ -2,29 +2,60 @@ const express = require("express");
 const router = express.Router();
 const db = require('../../config/db');
 
-// Lấy danh sách đơn hàng với phân trang
+// API lấy danh sách đơn hàng (dành cho OrderList, có phân trang)
 router.get("/orders", async (req, res) => {
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 5;
   const offset = (page - 1) * limit;
 
   try {
-    const [orders] = await db.query(
-      "SELECT * FROM orders LIMIT ? OFFSET ?",
-      [limit, offset]
-    );
-    res.json(orders);
+    const query = `
+      SELECT order_id, order_date, total_price, payment_status 
+      FROM orders
+      LIMIT ? OFFSET ?
+    `;
+    const [rows] = await db.query(query, [limit, offset]);
+
+    const [totalResult] = await db.query('SELECT COUNT(*) as total FROM orders');
+    const totalOrders = totalResult[0].total;
+    const totalPages = Math.ceil(totalOrders / limit);
+
+    res.json({
+      orders: rows,
+      totalOrders,
+      totalPages,
+      currentPage: page,
+    });
   } catch (error) {
-    console.error("Lỗi truy vấn:", error);
-    res.status(500).json({ message: "Lỗi server" });
+    console.error('Lỗi khi lấy danh sách đơn hàng:', error);
+    res.status(500).json({ message: 'Lỗi server khi lấy danh sách đơn hàng' });
   }
 });
 
-// Cập nhật trạng thái đơn hàng
+// API xóa đơn hàng
+router.delete("/api/orders/:id", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    // Xóa đơn hàng từ bảng orders
+    const [result] = await db.query('DELETE FROM orders WHERE order_id = ?', [id]);
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ message: 'Đơn hàng không tìm thấy' });
+    }
+
+    res.json({ message: 'Xóa đơn hàng thành công' });
+  } catch (error) {
+    console.error('Lỗi khi xóa đơn hàng:', error);
+    res.status(500).json({ message: 'Lỗi server khi xóa đơn hàng' });
+  }
+});
+
+// API cập nhật trạng thái đơn hàng
 router.post("/updateOrderStatus", async (req, res) => {
   const { id, status } = req.body;
   try {
-    await db.query("UPDATE orders SET status = ? WHERE id = ?", [
+    await db.query("UPDATE orders SET status = ? WHERE order_id = ?", [
       status,
       id,
     ]);

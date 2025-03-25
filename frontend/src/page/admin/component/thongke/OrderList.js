@@ -1,106 +1,110 @@
-import React, { useState, useEffect } from "react";
-import "./OrderList.scss";
+import React, { useState, useEffect } from 'react';
+import './OrderList.scss';
 
-const AdminOrderList = () => {
+function OrderList() {
   const [orders, setOrders] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const recordsPerPage = 5;
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const limit = 10;
 
+  // Lấy danh sách đơn hàng từ backend
   useEffect(() => {
-    fetch(`http://localhost:5000/api/orders?page=${currentPage}&limit=${recordsPerPage}`)
+    fetch(`http://localhost:5000/api/orders?page=${page}&limit=${limit}`)
       .then((res) => res.json())
-      .then((data) => setOrders(data))
-      .catch((err) => console.error("Lỗi khi lấy đơn hàng:", err));
-  }, [currentPage]);
+      .then((data) => {
+        setOrders(Array.isArray(data.orders) ? data.orders : []);
+        setTotalPages(data.totalPages || 1);
+      })
+      .catch((err) => {
+        console.error('Lỗi khi lấy dữ liệu:', err);
+        setOrders([]);
+        setTotalPages(1);
+      });
+  }, [page]);
 
-  const totalPages = Math.ceil(orders.length / recordsPerPage);
+  // Xóa đơn hàng
+  const handleDeleteOrder = (orderId) => {
+    if (window.confirm('Bạn có chắc chắn muốn xóa đơn hàng này?')) {
+      fetch(`http://localhost:5000/api/orders/${orderId}`, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+      })
+        .then((res) => res.json())
+        .then(() => {
+          // Cập nhật danh sách đơn hàng sau khi xóa
+          setOrders(orders.filter((order) => order.order_id !== orderId));
+          // Nếu trang hiện tại không còn đơn hàng, chuyển về trang trước (nếu không phải trang 1)
+          if (orders.length === 1 && page > 1) {
+            setPage(page - 1);
+          }
+        })
+        .catch((err) => console.error('Lỗi khi xóa đơn hàng:', err));
+    }
+  };
 
-  const handleStatusChange = (orderId, newStatus) => {
-    fetch(`http://localhost:5000/api/updateOrderStatus`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id: orderId, status: newStatus }),
-    })
-      .then((res) => res.text())
-      .then(() => alert("Cập nhật trạng thái thành công!"))
-      .catch((err) => console.error("Lỗi cập nhật trạng thái:", err));
+  // Chuyển trang trước
+  const handlePreviousPage = () => {
+    if (page > 1) {
+      setPage(page - 1);
+    }
+  };
+
+  // Chuyển trang sau
+  const handleNextPage = () => {
+    if (page < totalPages) {
+      setPage(page + 1);
+    }
   };
 
   return (
-    <div className="admin-container">
-      <div className="admin-menu">
-        <h2>Nhân Viên</h2>
-        <a href="/admin">👤 Admin</a>
-        <a href="/logout">❕ Đăng xuất</a>
-
-        <h2>Tổng Quan</h2>
-        <a href="/admin/orders">🛒 Thống kê đơn hàng</a>
-
-        <h2>Chức Năng</h2>
-        <a href="/admin/add">➕ Thêm sản phẩm mới</a>
-        <a href="/admin/products">🛍️ Danh sách sản phẩm</a>
-      </div>
-
-      <div className="admin-content">
-        <h2>Thống kê đơn hàng</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Mã đơn hàng</th>
-              <th>Khách hàng</th>
-              <th>Địa chỉ</th>
-              <th>Điện thoại</th>
-              <th>Ngày giao</th>
-              <th>Trạng thái</th>
-              <th>Sản phẩm</th>
-              <th>Số lượng</th>
-              <th>Giá</th>
-              <th>Tổng</th>
-            </tr>
-          </thead>
-          <tbody>
-            {orders.map((order) => (
-              <tr key={order.id}>
-                <td>{order.id}</td>
-                <td>{order.order_id}</td>
-                <td>{order.name}</td>
-                <td>{order.address}</td>
-                <td>{order.phone_number}</td>
-                <td>{order.delivery_date}</td>
-                <td>
-                  <select
-                    value={order.status}
-                    onChange={(e) => handleStatusChange(order.id, e.target.value)}
-                  >
-                    <option value="Đang xử lý">Đang xử lý</option>
-                    <option value="Đang gửi">Đang gửi</option>
-                    <option value="Đã xong">Đã xong</option>
-                  </select>
-                </td>
-                <td>{order.product_name}</td>
-                <td>{order.quantity}</td>
-                <td>{order.price.toLocaleString()} VND</td>
-                <td>{order.total_price.toLocaleString()} VND</td>
+    <div className="app">
+      <h1>Thống Kê Đơn Hàng</h1>
+      {orders.length === 0 ? (
+        <p>Không có đơn hàng nào để hiển thị.</p>
+      ) : (
+        <>
+          <table className="order-table">
+            <thead>
+              <tr>
+                <th>ID Đơn Hàng</th>
+                <th>Ngày Tạo</th>
+                <th>Tổng Giá (VND)</th>
+                <th>Trạng Thái Thanh Toán</th>
+                <th>Hành Động</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-
-        <div className="pagination">
-          {Array.from({ length: totalPages }, (_, i) => (
-            <button
-              key={i}
-              className={currentPage === i + 1 ? "active" : ""}
-              onClick={() => setCurrentPage(i + 1)}
-            >
-              {i + 1}
+            </thead>
+            <tbody>
+              {orders.map((order) => (
+                <tr key={order.order_id}>
+                  <td>{order.order_id}</td>
+                  <td>{new Date(order.order_date).toLocaleString()}</td>
+                  <td>{order.total_price.toLocaleString()}</td>
+                  <td>{order.payment_status}</td>
+                  <td>
+                    <button
+                      className="btn-delete"
+                      onClick={() => handleDeleteOrder(order.order_id)}
+                    >
+                      Xóa
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <div className="pagination">
+            <button onClick={handlePreviousPage} disabled={page === 1}>
+              Trang trước
             </button>
-          ))}
-        </div>
-      </div>
+            <span>Trang {page} / {totalPages}</span>
+            <button onClick={handleNextPage} disabled={page === totalPages}>
+              Trang sau
+            </button>
+          </div>
+        </>
+      )}
     </div>
   );
-};
+}
 
-export default AdminOrderList;
+export default OrderList;
