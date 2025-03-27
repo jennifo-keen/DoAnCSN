@@ -9,6 +9,7 @@ const SignUp = () => {
     password: '',
     confirmPassword: '',
     phone: '',
+    address: '', 
   });
 
   const navigate = useNavigate(); // Sử dụng hook useNavigate
@@ -35,6 +36,7 @@ const SignUp = () => {
           email: formData.email,
           password: formData.password,
           phone: formData.phone, // Gửi thêm số điện thoại
+          address: formData.address, // Gửi địa chỉ
         }),
       });
   
@@ -47,10 +49,11 @@ const SignUp = () => {
           name: formData.name,
           email: formData.email,
           phone: formData.phone,
+          address: formData.address, // Lưu địa chỉ vào localStorage
         }));
         
-        setFormData({ name: '', email: '', password: '', confirmPassword: '', phone: '' }); // Reset form
-        navigate('/login'); // Chuyển hướng về trang chủ
+        setFormData({ name: '', email: '', password: '', confirmPassword: '', phone: '', address: '' }); // Reset form
+        navigate('/login'); // Chuyển hướng về trang đăng nhập
       } else {
         alert(data.message || 'Có lỗi xảy ra!');
       }
@@ -96,6 +99,18 @@ const SignUp = () => {
             name="email"
             placeholder="Nhập email"
             value={formData.email}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="address">Địa chỉ</label>
+          <input
+            type="text"
+            id="address"
+            name="address"
+            placeholder="Nhập địa chỉ của bạn"
+            value={formData.address}
             onChange={handleInputChange}
             required
           />

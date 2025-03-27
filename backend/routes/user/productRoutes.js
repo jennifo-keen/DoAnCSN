@@ -44,17 +44,21 @@ router.get('/products/:productId', async (req, res) => {
 
 // API đăng ký người dùng
 router.post('/register', async (req, res) => {
-  const { name, email, password, phone } = req.body;
+  const { name, email, password, phone, address } = req.body; // Thêm address vào body
   try {
+    // Kiểm tra xem email đã tồn tại chưa
     const [existingCustomer] = await db.query('SELECT * FROM customers WHERE email = ?', [email]);
     if (existingCustomer.length > 0) {
       return res.status(400).json({ message: 'Email đã được sử dụng' });
     }
 
+    // Mã hóa mật khẩu
     const hashedPassword = bcrypt.hashSync(password, 10);
+
+    // Thực hiện câu lệnh SQL để thêm người dùng mới vào cơ sở dữ liệu
     await db.query(
-      'INSERT INTO customers (name, email, password, phone) VALUES (?, ?, ?, ?)',
-      [name, email, hashedPassword, phone]
+      'INSERT INTO customers (name, email, password, phone, shipping_address) VALUES (?, ?, ?, ?, ?)', // Thêm trường shipping_address
+      [name, email, hashedPassword, phone, address] // Gửi địa chỉ vào cơ sở dữ liệu
     );
 
     res.status(201).json({ message: 'Đăng ký thành công' });
@@ -63,6 +67,7 @@ router.post('/register', async (req, res) => {
     res.status(500).json({ message: 'Lỗi server' });
   }
 });
+
 
 // API đăng nhập
 router.post('/login', async (req, res) => {
@@ -84,6 +89,8 @@ router.post('/login', async (req, res) => {
         id: user[0].customer_id,
         name: user[0].name,
         email: user[0].email,
+        phone: user[0].phone,
+        shipping_address: user[0].shipping_address,
       },
     });
   } catch (error) {
