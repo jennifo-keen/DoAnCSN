@@ -40,7 +40,7 @@ const SignUp = () => {
   
       const data = await response.json();
       if (response.ok) {
-        alert('Đăng ký thành công!');
+        alert('Đăng ký thành công! Hãy đăng nhập lại để sử dụng.');
         
         // Lưu thông tin người dùng vào localStorage
         localStorage.setItem('user', JSON.stringify({
@@ -50,7 +50,7 @@ const SignUp = () => {
         }));
         
         setFormData({ name: '', email: '', password: '', confirmPassword: '', phone: '' }); // Reset form
-        navigate('/'); // Chuyển hướng về trang chủ
+        navigate('/login'); // Chuyển hướng về trang chủ
       } else {
         alert(data.message || 'Có lỗi xảy ra!');
       }

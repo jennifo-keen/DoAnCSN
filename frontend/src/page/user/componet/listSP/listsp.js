@@ -51,7 +51,7 @@ function ProductList() {
           <p>Không có sản phẩm nào để hiển thị</p>
         )}
       </div>
-      <div className="pagination">
+      <div className="Pagination">
         {currentPage > 1 && (
           <button
             className="page-button"
