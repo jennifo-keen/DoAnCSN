@@ -32,16 +32,15 @@ router.get("/orders", async (req, res) => {
   }
 });
 
-// API xóa đơn hàng
-router.delete("/api/orders/:id", async (req, res) => {
-  const { id } = req.params;
+// Xóa đơn hàng
+router.delete('/orders/:orderId', async (req, res) => {
+  const { orderId } = req.params;
 
   try {
-    // Xóa đơn hàng từ bảng orders
-    const [result] = await db.query('DELETE FROM orders WHERE order_id = ?', [id]);
+    const [result] = await db.query('DELETE FROM orders WHERE order_id = ?', [orderId]);
 
     if (result.affectedRows === 0) {
-      return res.status(404).json({ message: 'Đơn hàng không tìm thấy' });
+      return res.status(404).json({ message: 'Không tìm thấy đơn hàng để xóa' });
     }
 
     res.json({ message: 'Xóa đơn hàng thành công' });

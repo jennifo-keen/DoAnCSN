@@ -17,3 +17,16 @@
     }
   }
 }
+button{
+  background: none;
+  border: 1px solid #b5a69a;
+  padding: 5px 15px;
+  border-radius: 5px;
+  color: #b5a69a;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+button:hover {
+  background: #b5a69a;
+  color: white;
+}

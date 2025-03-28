@@ -83,7 +83,7 @@ const AdminProductList = () => {
     <div className="apl-container">
       <div className="apl-menu">
         <div className="apl-logo">Admin Dashboard</div>
-        <a href="/admin" className="apl-menu-item apl-active">
+        <a href="/admin/dashboard" className="apl-menu-item apl-active">
           <span className="apl-icon">📦</span> Danh sách sản phẩm
         </a>
         <a href="/admin/orderlist" className="apl-menu-item">
@@ -202,7 +202,7 @@ const AdminProductList = () => {
           ))}
         </div>
 
-        <div className="apl-pagination">
+        <div className="apl-phantrang">
           {Array.from({ length: totalPages }, (_, i) => (
             <button key={i} className={currentPage === i + 1 ? "apl-active" : ""} onClick={() => setCurrentPage(i + 1)}>
               {i + 1}
