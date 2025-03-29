@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './OrderList.scss';
 
 function OrderList() {
@@ -7,16 +7,16 @@ function OrderList() {
   const [totalPages, setTotalPages] = useState(1);
   const limit = 9;
 
-  // Hàm định dạng giá với dấu chấm
   const formatPrice = (price) => {
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
   };
 
-  // Lấy danh sách đơn hàng từ backend
-  useEffect(() => {
+  const fetchOrders = useCallback(() => {
+    console.log('Bắt đầu fetchOrders');
     fetch(`http://localhost:5000/api/orders?page=${page}&limit=${limit}`)
       .then((res) => res.json())
       .then((data) => {
+        console.log('Dữ liệu từ server:', data);
         setOrders(Array.isArray(data.orders) ? data.orders : []);
         setTotalPages(data.totalPages || 1);
       })
@@ -24,44 +24,57 @@ function OrderList() {
         console.error('Lỗi khi lấy dữ liệu:', err);
         setOrders([]);
         setTotalPages(1);
-      });
-  }, [page]);
-
-  // Xóa đơn hàng
-  const handleDeleteOrder = (orderId) => {
-    if (window.confirm('Đơn hàng này đã được thanh toán ?')) {
-      fetch(`http://localhost:5000/api/orders/${orderId}`, {
-        method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' },
       })
-        .then((res) => res.json())
-        .then(() => {
-          setOrders(orders.filter((order) => order.order_id !== orderId));
-          if (orders.length === 1 && page > 1) {
-            setPage(page - 1);
-          }
-        })
-        .catch((err) => console.error('Lỗi khi xóa đơn hàng:', err));
+      .finally(() => {
+        console.log('fetchOrders hoàn tất');
+      });
+  }, [page, limit]);
+
+  useEffect(() => {
+    fetchOrders();
+  }, [fetchOrders]);
+
+  const handlePaymentStatusChange = async (orderId, newStatus) => {
+    try {
+      console.log('Thay đổi trạng thái:', { orderId, newStatus });
+      const response = await fetch(`http://localhost:5000/api/orders/${orderId}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ payment_status: newStatus }),
+      });
+
+      if (response.ok) {
+        const updatedOrder = await response.json();
+        console.log('Phản hồi từ server:', updatedOrder);
+
+        // Hiển thị thông báo đơn giản bằng window.alert
+        if (window.confirm('Thay đổi trạng thái thành công!')) {
+          console.log('Người dùng nhấn OK để về trang chủ');
+          // Sử dụng window.location.href để điều hướng
+          setTimeout(() => {
+            window.location.href = '/admin/orderlist';
+          }, 100);
+        }
+      } else {
+        console.error('Cập nhật thất bại, status:', response.status);
+        alert('Cập nhật trạng thái thất bại. Vui lòng thử lại!');
+      }
+    } catch (err) {
+      console.error('Lỗi khi cập nhật trạng thái:', err);
+      alert('Có lỗi xảy ra khi cập nhật trạng thái!');
     }
   };
 
-  // Chuyển trang trước
   const handlePreviousPage = () => {
-    if (page > 1) {
-      setPage(page - 1);
-    }
+    if (page > 1) setPage(page - 1);
   };
 
-  // Chuyển trang sau
   const handleNextPage = () => {
-    if (page < totalPages) {
-      setPage(page + 1);
-    }
+    if (page < totalPages) setPage(page + 1);
   };
 
   return (
     <div className="apl-container">
-      {/* Menu bên trái */}
       <div className="apl-menu">
         <div className="apl-logo">Admin Dashboard</div>
         <a href="/admin/dashboard" className="apl-menu-item">
@@ -75,7 +88,6 @@ function OrderList() {
         </a>
       </div>
 
-      {/* Nội dung chính */}
       <div className="apl-content">
         <div className="apl-header">
           <h2>Thống Kê Đơn Hàng</h2>
@@ -103,12 +115,14 @@ function OrderList() {
                     </div>
                   </div>
                   <div className="apl-product-actions">
-                    <button
-                      className="apl-delete-btn"
-                      onClick={() => handleDeleteOrder(order.order_id)}
+                    <select
+                      value={order.payment_status}
+                      onChange={(e) => handlePaymentStatusChange(order.order_id, e.target.value)}
+                      className="apl-status-select"
                     >
-                      Đã thanh toán
-                    </button>
+                      <option value="Chưa thanh toán">Chưa thanh toán</option>
+                      <option value="Đã thanh toán">Đã thanh toán</option>
+                    </select>
                   </div>
                 </div>
               ))}

@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../contexts/login-registerContext";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 import "./Profile.scss";
 
 const Profile = () => {
-  const { user, login } = useContext(AuthContext);
+  const { user, login, logout } = useContext(AuthContext);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -14,8 +15,8 @@ const Profile = () => {
     phone: "",
     shipping_address: "",
   });
+  const navigate = useNavigate();
 
-  // Load dữ liệu từ localStorage khi component render
   useEffect(() => {
     if (user) {
       setFormData({
@@ -28,27 +29,60 @@ const Profile = () => {
     }
   }, [user]);
 
-  // Xử lý thay đổi input
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Gửi API cập nhật dữ liệu
-  const handleSave = () => {
-    axios
-      .put(`http://localhost:5000/api/user/${user.id}`, formData)
-      .then((response) => {
-        toast.success("Cập nhật thông tin thành công!", { position: "top-right" });
+  const handleSave = async () => {
+    const updatedData = {};
+    if (formData.name && formData.name !== user.name) updatedData.name = formData.name;
+    if (formData.phone && formData.phone !== user.phone) updatedData.phone = formData.phone;
+    if (formData.shipping_address && formData.shipping_address !== user.shipping_address)
+      updatedData.shipping_address = formData.shipping_address;
+    if (formData.password) updatedData.password = formData.password;
 
-        // Cập nhật localStorage với thông tin mới
-        const updatedUser = { ...user, ...formData };
-        delete updatedUser.password; // Không lưu mật khẩu vào localStorage
-        login(updatedUser);
-      })
-      .catch((error) => {
-        console.error("Lỗi khi cập nhật thông tin:", error);
-        toast.error("Lỗi khi cập nhật. Vui lòng thử lại!", { position: "top-right" });
+    if (Object.keys(updatedData).length === 0) {
+      toast.info("Không có thay đổi để cập nhật!", { position: "top-right" });
+      return;
+    }
+
+    try {
+      const response = await axios.put(
+        `http://localhost:5000/api/user/${user.id}`,
+        updatedData,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          timeout: 10000, // Tăng timeout lên 10 giây
+        }
+      );
+
+      console.log("Response từ API:", response);
+
+      toast.success("Cập nhật thông tin thành công! Vui lòng đăng nhập lại.", {
+        position: "top-right",
       });
+
+      const updatedUser = { ...user, ...updatedData };
+      delete updatedUser.password;
+      login(updatedUser);
+
+      setTimeout(() => {
+        logout();
+        localStorage.removeItem("token");
+        navigate("/login");
+      }, 2000);
+    } catch (error) {
+      console.error("Lỗi khi cập nhật thông tin:", error.response || error);
+      if (error.code === "ECONNABORTED") {
+        toast.error("Yêu cầu hết thời gian. Vui lòng thử lại!", { position: "top-right" });
+      } else {
+        toast.error(error.response?.data?.error || "Lỗi khi cập nhật. Vui lòng thử lại!", {
+          position: "top-right",
+        });
+      }
+    }
   };
 
   return (
@@ -68,17 +102,21 @@ const Profile = () => {
       </div>
       <div className="form-group">
         <label>Địa chỉ giao hàng *</label>
-        <input type="text" name="shipping_address" value={formData.shipping_address} onChange={handleChange} />
+        <input
+          type="text"
+          name="shipping_address"
+          value={formData.shipping_address}
+          onChange={handleChange}
+        />
       </div>
       <div className="form-group">
         <label>Mật khẩu mới (để trống nếu không đổi)</label>
         <input type="password" name="password" value={formData.password} onChange={handleChange} />
       </div>
 
-      <button className="save-btn" onClick={handleSave}>LƯU THAY ĐỔI</button>
-
-      {/* Hiển thị thông báo */}
-      <ToastContainer />
+      <button className="save-btn" onClick={handleSave}>
+        LƯU THAY ĐỔI
+      </button>
     </div>
   );
 };

@@ -23,12 +23,13 @@ const Order = () => {
         <div className="order-info">
           <h3>Thông tin đơn hàng</h3>
           <p><strong>Order ID:</strong> {orderInfo.order_id}</p>
-          <p><strong>Tình trạng:</strong> {orderInfo.status}</p>
-          <p><strong>Tổng giá trị:</strong> {orderInfo.total_price} VND</p>
-          <p><strong>Ngày tạo:</strong> {new Date(orderInfo.created_at).toLocaleString()}</p>
-          <p><strong>Địa chỉ giao hàng:</strong> {orderInfo.shipping_address}</p>
+          <p><strong>Tổng giá trị:</strong> {orderInfo.total_price} VND</p>          
           <p><strong>Phương thức thanh toán:</strong> {orderInfo.payment_method}</p>
           <p><strong>Trạng thái thanh toán:</strong> {orderInfo.payment_status}</p>
+          <p><strong>Ngày tạo:</strong> {new Date(orderInfo.created_at).toLocaleString()}</p>
+          <p><strong>Địa chỉ giao hàng:</strong> {orderInfo.shipping_address}</p>
+
+          
         </div>
       ) : (
         <p className="not-found">Không tìm thấy thông tin đơn hàng.</p>

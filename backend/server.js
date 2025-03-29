@@ -11,10 +11,7 @@ const order = require('./routes/admin/orders')
 
 // Middleware
 app.use(cors({
-    origin: 'http://localhost:3000', // Cho phép origin của frontend
-    credentials: true, // Cho phép gửi cookie hoặc header Authorization
-    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Các phương thức được phép
-    allowedHeaders: ['Content-Type', 'Authorization'] // Các header được phép
+
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

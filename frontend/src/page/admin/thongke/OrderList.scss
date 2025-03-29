@@ -221,3 +221,14 @@
     grid-template-columns: 1fr;
   }
 }
+.apl-status-select {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: white;
+  cursor: pointer;
+  
+  &:hover {
+    border-color: #999;
+  }
+}

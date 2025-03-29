@@ -189,7 +189,7 @@ router.delete('/products/:productId', async (req, res) => {
 // API lấy thông tin người dùng
 router.get("/user/:id", (req, res) => {
   const userId = req.params.id;
-  db.query("SELECT * FROM users WHERE id = ?", [userId], (err, result) => {
+  db.query("SELECT * FROM customers WHERE customer_id = ?", [userId], (err, result) => {
     if (err) {
       return res.status(500).json({ error: "Lỗi truy vấn dữ liệu" });
     }
@@ -206,6 +206,7 @@ router.put("/user/:id", async (req, res) => {
     let updateFields = [];
     let values = [];
 
+    // Kiểm tra và thêm các trường vào mảng updateFields nếu có dữ liệu
     if (name) {
       updateFields.push("name = ?");
       values.push(name);
@@ -228,22 +229,37 @@ router.put("/user/:id", async (req, res) => {
       values.push(shipping_address);
     }
 
-    values.push(userId);
-
+    // Kiểm tra nếu không có trường nào để cập nhật
     if (updateFields.length === 0) {
       return res.status(400).json({ error: "Không có thông tin nào để cập nhật" });
     }
 
+    // Thêm userId vào cuối mảng values
+    values.push(userId);
+
+    // Tạo câu lệnh SQL để cập nhật dữ liệu
     const query = `UPDATE customers SET ${updateFields.join(", ")} WHERE customer_id = ?`;
+
+    // Thực hiện câu lệnh SQL
     db.query(query, values, (err, result) => {
       if (err) {
+        console.error("Lỗi khi cập nhật dữ liệu:", err);
         return res.status(500).json({ error: "Lỗi cập nhật dữ liệu" });
       }
+
+      // Nếu không có dòng nào được cập nhật, trả về lỗi
+      if (result.affectedRows === 0) {
+        return res.status(404).json({ error: "Không tìm thấy người dùng để cập nhật" });
+      }
+
+      // Trả về thông báo thành công
       res.json({ message: "Cập nhật thành công!" });
     });
   } catch (error) {
+    console.error("Lỗi xử lý dữ liệu:", error);
     res.status(500).json({ error: "Lỗi xử lý dữ liệu" });
   }
 });
+
 
 module.exports = router;

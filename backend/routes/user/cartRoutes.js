@@ -84,8 +84,8 @@ router.post('/cart/checkout', async (req, res) => {
 
     // 4. Tạo đơn hàng
     const [orderResult] = await db.query(
-      `INSERT INTO orders (customer_id, total_price, status, created_at, shipping_address)
-       VALUES (?, ?, 'Chưa thanh toán', NOW(), ?)`,
+      `INSERT INTO orders (customer_id, total_price, payment_method, created_at, shipping_address, payment_status,status)
+       VALUES (?, ?, 'Thanh toán khi nhận hàng', NOW(), ?,'Chưa thanh toán','Chưa giải quyết')`,
       [customer_id, total_price, customerInfo[0].shipping_address]
     );
     const orderId = orderResult.insertId;

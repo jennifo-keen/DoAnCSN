@@ -32,36 +32,26 @@ router.get("/orders", async (req, res) => {
   }
 });
 
-// Xóa đơn hàng
-router.delete('/orders/:orderId', async (req, res) => {
+// Cập nhật trạng thái đơn hàng
+router.patch('/orders/:orderId', async (req, res) => {
   const { orderId } = req.params;
+  const { payment_status } = req.body;
 
   try {
-    const [result] = await db.query('DELETE FROM orders WHERE order_id = ?', [orderId]);
+    const [result] = await db.query(
+      'UPDATE orders SET payment_status = ? WHERE order_id = ?',
+      [payment_status, orderId]
+    );
 
     if (result.affectedRows === 0) {
-      return res.status(404).json({ message: 'Không tìm thấy đơn hàng để xóa' });
+      return res.status(404).json({ error: 'Không tìm thấy đơn hàng' });
     }
 
-    res.json({ message: 'Xóa đơn hàng thành công' });
-  } catch (error) {
-    console.error('Lỗi khi xóa đơn hàng:', error);
-    res.status(500).json({ message: 'Lỗi server khi xóa đơn hàng' });
-  }
-});
-
-// API cập nhật trạng thái đơn hàng
-router.post("/updateOrderStatus", async (req, res) => {
-  const { id, status } = req.body;
-  try {
-    await db.query("UPDATE orders SET status = ? WHERE order_id = ?", [
-      status,
-      id,
-    ]);
-    res.send("Cập nhật thành công!");
-  } catch (error) {
-    console.error("Lỗi cập nhật trạng thái:", error);
-    res.status(500).json({ message: "Lỗi server" });
+    console.log(`Cập nhật trạng thái đơn hàng ${orderId} thành công: ${payment_status}`); // Debug
+    res.json({ order_id: orderId, payment_status });
+  } catch (err) {
+    console.error('Lỗi khi cập nhật trạng thái:', err);
+    res.status(500).json({ error: 'Lỗi khi cập nhật' });
   }
 });
 
