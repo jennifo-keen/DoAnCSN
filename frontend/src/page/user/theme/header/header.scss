@@ -1,0 +1,219 @@
+/* Main container for the header */
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 15px 20px;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 80px;
+}
+
+/* Header section with connect icons */
+.header-connect-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+/* Connect section with icons */
+.header-connect {
+  display: flex;
+  gap: 15px;
+  padding-left: 20px;
+  max-width: 200px;
+}
+
+/* Style for connect links */
+.header-connect a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+/* Style for connect icons */
+.header-connect img {
+  width: 24px;
+  height: 24px;
+  transition: opacity 0.3s ease-in-out;
+}
+
+/* Hiệu ứng hover cho icon */
+.header-connect a:hover img {
+  opacity: 0.8;
+}
+
+/* Logo section */
+.header-logo {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Style for logo image */
+.header-logo img {
+  height: 60px;
+  width: 120px;
+  max-width: 100%;
+}
+
+/* User section */
+.header-user {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 16px;
+  max-width: 400px;
+  justify-content: flex-end;
+  padding-right: 20px;
+  white-space: nowrap;
+}
+
+/* Style for user links */
+.header-user a {
+  text-decoration: none;
+  color: #b5a69a;
+  font-weight: 600;
+}
+
+/* Style for user info section */
+.header-user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Style for user name */
+.header-user-info span {
+  color: #000;
+}
+
+/* Style for logout button */
+.header-user-info button {
+  background: none;
+  border: 1px solid #b5a69a;
+  padding: 5px 15px;
+  border-radius: 5px;
+  color: #b5a69a;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+/* Hover effect for logout button */
+.header-user-info button:hover {
+  background: #b5a69a;
+  color: white;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 1024px) {
+  .header-container {
+      padding: 10px 15px;
+      min-height: 70px;
+  }
+
+  .header-connect {
+      padding-left: 10px;
+      max-width: 150px;
+      gap: 10px;
+  }
+
+  .header-connect img {
+      width: 20px;
+      height: 20px;
+  }
+
+  .header-logo img {
+      height: 50px;
+      width: 100px;
+  }
+
+  .header-user {
+      padding-right: 10px;
+      max-width: 350px;
+      font-size: 14px;
+      gap: 10px;
+  }
+
+  .header-user-info button {
+      padding: 4px 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header-container {
+      flex-direction: column;
+      align-items: center;
+      padding: 10px;
+      min-height: auto;
+  }
+
+  .header-connect {
+      padding-left: 0;
+      justify-content: center;
+      max-width: 100%;
+      margin-bottom: 10px;
+  }
+
+  .header-logo {
+      position: relative;
+      left: 0;
+      transform: none;
+      margin: 10px 0;
+  }
+
+  .header-logo img {
+      height: 40px;
+      width: 80px;
+  }
+
+  .header-user {
+      padding-right: 0;
+      max-width: 100%;
+      justify-content: center;
+      font-size: 14px;
+      gap: 10px;
+      flex-wrap: nowrap;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-container {
+      padding: 5px;
+  }
+
+  .header-connect {
+      gap: 8px;
+  }
+
+  .header-connect img {
+      width: 18px;
+      height: 18px;
+  }
+
+  .header-logo img {
+      height: 35px;
+      width: 70px;
+  }
+
+  .header-user {
+      font-size: 12px;
+      gap: 8px;
+  }
+
+  .header-user-info {
+      gap: 5px;
+  }
+
+  .header-user-info button {
+      padding: 3px 8px;
+      font-size: 12px;
+  }
+
+  .header-user-info span {
+      font-size: 12px;
+  }
+}

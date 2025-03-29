@@ -1,0 +1,45 @@
+/*----------------------- footer -----------------------*/
+    footer{
+    padding-top: 50px;
+    }
+    .footer_1{
+    display: flex;
+    justify-content: space-between;
+    padding:10px 170px;
+    }
+    .footer_logo{
+    height:20vh;
+    }
+    .footer_conn h2{
+    color: #b5a69a;
+    padding-bottom: 10px;
+    }
+    .footer_conn ul li {
+    list-style-type: none;
+    padding: 10px 0 ;
+    }
+    .footer_conn ul li a{
+    text-decoration: none;
+    color: black;
+    }
+    .footer_conn ul li a:hover{
+    text-decoration: underline;
+    }
+    .hr{
+    width: 70%; /* Độ dài của đường kẻ ngang */
+    border: none; /* Xóa đường viền mặc định của <hr> */
+    border-top: 1px solid #b5a69ab5; /* Đặt độ dày và màu sắc cho đường kẻ */
+    margin: 20px auto; /* Căn giữa đường kẻ ngang */
+    }
+    .footer_2{
+    display: flex;
+    padding: 0 170px;
+    justify-content: space-between;
+    }
+    .footer_2_text p{
+    padding: 10px 10px;
+    }
+    .footer_2_img{
+    height: 10vh;
+    padding-right: 50px;
+    }

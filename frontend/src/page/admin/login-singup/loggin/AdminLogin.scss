@@ -1,0 +1,92 @@
+.logincontainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f7f9fc;
+  
+    .loginbox {
+      background: #fff;
+      padding: 3rem; // Tăng padding để form trông lớn hơn
+      border-radius: 12px;
+      box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+      width: 420px; // Tăng chiều rộng form
+      text-align: center;
+  
+      .kk {
+        font-size: 3rem; // Tăng kích thước logo
+        font-weight: bold;
+        color: #3b82f6;
+        margin-bottom: 15px;
+      }
+  
+      h2 {
+        font-size: 28px; // Tăng kích thước tiêu đề
+        color: #333;
+        margin-bottom: 8px;
+      }
+  
+      .subtitle {
+        font-size: 16px; // Tăng font chữ của mô tả
+        color: #666;
+        margin-bottom: 25px;
+      }
+  
+      .error-message {
+        color: red;
+        font-size: 16px;
+        margin-bottom: 12px;
+      }
+  
+      .input-group {
+        margin-bottom: 18px;
+        display: flex;
+  
+        input {
+          width: 100%;
+          padding: 14px; // Tăng kích thước ô nhập liệu
+          border: 1px solid #ccc;
+          border-radius: 6px;
+          font-size: 18px; // Tăng font chữ
+          transition: border 0.3s;
+  
+          &:focus {
+            border-color: #3b82f6;
+            outline: none;
+          }
+        }
+      }
+  
+      .login-button {
+        width: 100%;
+        background: #3b82f6;
+        color: white;
+        padding: 14px; // Tăng kích thước nút đăng nhập
+        font-size: 18px; // Tăng kích thước chữ trên nút
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background 0.3s;
+  
+        &:hover {
+          background: #2563eb;
+        }
+      }
+  
+      .forgot-password {
+        font-size: 16px; // Tăng kích thước chữ phần quên mật khẩu
+        margin-top: 12px;
+  
+        a {
+          color: #3b82f6;
+          text-decoration: none;
+          font-weight: 600;
+  
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+  

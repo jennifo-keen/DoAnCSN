@@ -1,0 +1,222 @@
+/* OrderDetailsList.scss */
+
+.apl-container {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f7f9fc;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Menu styles */
+.apl-menu {
+  width: 220px;
+  background-color: #fff;
+  padding: 10px;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+  position: fixed;
+  height: 50vh;
+  overflow-y: auto;
+  border-radius: 10px;
+
+  .apl-logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #6c5ce7;
+    margin-bottom: 30px;
+  }
+
+  .apl-menu-item {
+    display: flex;
+    align-items: center;
+    color: #6c5ce7;
+    text-decoration: none;
+    padding: 12px 15px;
+    margin: 5px 0;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+
+    .apl-icon {
+      margin-right: 10px;
+      font-size: 1.2rem;
+    }
+
+    &.apl-active {
+      background-color: #6c5ce7;
+      color: #fff;
+    }
+
+    &:hover {
+      background-color: #f0f0f0;
+    }
+
+    &.apl-logout {
+      position: absolute;
+      bottom: 20px;
+      width: calc(100% - 40px);
+    }
+  }
+}
+
+/* Nội dung chính */
+.apl-content {
+  margin-left: 240px;
+  padding: 30px;
+  flex-grow: 1;
+
+  .apl-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+
+    h2 {
+      font-size: 1.8rem;
+      color: #2d3436;
+      font-weight: 600;
+    }
+  }
+
+  .apl-stats {
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    color: #636e72;
+  }
+
+  .apl-order-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+
+    .apl-product-card {
+      background-color: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      padding: 15px;
+      display: flex;
+      gap: 15px;
+      transition: transform 0.3s ease;
+
+      &:hover {
+        transform: translateY(-5px);
+      }
+
+      .apl-product-info {
+        flex-grow: 1;
+
+        h4 {
+          font-size: 1.2rem;
+          color: #2d3436;
+          margin-bottom: 5px;
+        }
+
+        .apl-description {
+          font-size: 0.9rem;
+          color: #636e72;
+          margin-bottom: 10px;
+        }
+
+        .apl-price {
+          font-size: 1rem;
+          font-weight: 600;
+          color: #6c5ce7;
+          margin-bottom: 5px;
+        }
+
+        .apl-tags {
+          display: flex;
+          gap: 8px;
+
+          .apl-tag {
+            background-color: #dfe6e9;
+            padding: 5px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            color: #2d3436;
+          }
+        }
+      }
+
+      .apl-product-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        .apl-delete-btn {
+          padding: 8px 15px;
+          background-color: #ff7675;
+          color: #fff;
+          border: none;
+          border-radius: 8px;
+          font-size: 0.9rem;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+
+          &:hover {
+            background-color: #d63031;
+          }
+        }
+      }
+    }
+  }
+
+  .apl-pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    gap: 10px;
+
+    button {
+      padding: 8px 15px;
+      border: 1px solid #dfe6e9;
+      background-color: #fff;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background-color: #6c5ce7;
+        color: #fff;
+        border-color: #6c5ce7;
+      }
+
+      &:disabled {
+        background-color: #dfe6e9;
+        cursor: not-allowed;
+        color: #636e72;
+      }
+    }
+
+    span {
+      padding: 8px 15px;
+      font-size: 1rem;
+      color: #2d3436;
+    }
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .apl-container {
+    flex-direction: column;
+  }
+
+  .apl-menu {
+    width: 100%;
+    height: auto;
+    position: relative;
+
+    .apl-menu-item.apl-logout {
+      position: relative;
+      width: 100%;
+    }
+  }
+
+  .apl-content {
+    margin-left: 0;
+    padding: 20px;
+  }
+
+  .apl-order-list {
+    grid-template-columns: 1fr;
+  }
+}

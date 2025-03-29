@@ -1,0 +1,78 @@
+.signup-container {
+  max-width: 450px;
+  margin: 50px auto;
+  padding: 30px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 15px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.signup-container h1 {
+  font-size: 32px;
+  margin-bottom: 25px;
+  color: #333;
+  font-weight: bold;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #555;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #555;
+  transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #b58865; /* Vàng ánh kim */
+  box-shadow: 0 0 8px rgba(181, 136, 101, 0.5);
+}
+
+.signup-button {
+  width: 100%;
+  background-color: #b58865; /* Vàng ánh kim */
+  color: white;
+  border: none;
+  padding: 14px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.signup-button:hover {
+  background-color: #a07357; /* Vàng ánh kim tối hơn */
+  transform: scale(1.02);
+}
+
+.signup-button:active {
+  transform: scale(0.98);
+}
+
+.signup-container form {
+  margin-top: 20px;
+}
+
+.signup-container input[type="number"]::-webkit-inner-spin-button, 
+.signup-container input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0; /* Ẩn nút tăng giảm cho input số */
+}
